@@ -4,7 +4,9 @@ Plugin Name: Error Log Viewer by BestWebSoft
 Plugin URI: http://bestwebsoft.com/products
 Description:Easy work with your error log files on the server and in the WordPress folder. Analize, monitor, clear, download.
 Author: BestWebSoft
-Version: 1.0.0
+Text Domain: error-log-viewer
+Domain Path: /languages
+Version: 1.0.1
 Author URI: http://bestwebsoft.com/
 License: GNU General Public License V3
 */
@@ -36,7 +38,7 @@ License: GNU General Public License V3
 if ( ! function_exists( 'rrrlgvwr_admin_menu' ) ) { 
 	function rrrlgvwr_admin_menu() { 
 		bws_add_general_menu( plugin_basename( __FILE__ ) );
-		add_submenu_page( 
+		$settings = add_submenu_page( 
 			'bws_plugins',
 			__( 'Error Log Viewer Settings', 'error-log-viewer' ),
 			'Error Log Viewer',
@@ -44,6 +46,16 @@ if ( ! function_exists( 'rrrlgvwr_admin_menu' ) ) {
 			'rrrlgvwr.php',
 			'rrrlgvwr_settings_page'
 		);
+		add_action( 'load-' . $settings, 'rrrlgvwr_add_tabs' );
+	}
+}
+
+/**
+ * Internationalization
+ */
+if ( ! function_exists( 'rrrlgvwr_plugins_loaded' ) ) {
+	function rrrlgvwr_plugins_loaded() {
+		load_plugin_textdomain( 'error-log-viewer', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 }
 
@@ -53,8 +65,6 @@ if ( ! function_exists( 'rrrlgvwr_admin_menu' ) ) {
 if ( ! function_exists ( 'rrrlgvwr_init' ) ) { 
 	function rrrlgvwr_init() { 
 		global $rrrlgvwr_options, $rrrlgvwr_plugin_info;
-		/* Internationalization, first(!) */
-		load_plugin_textdomain( 'error-log-viewer', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 		require_once( dirname( __FILE__ ) . '/bws_menu/bws_include.php' );
 		bws_include_init( plugin_basename( __FILE__ ) );
@@ -66,7 +76,7 @@ if ( ! function_exists ( 'rrrlgvwr_init' ) ) {
 		}
 
 		/* Function check if plugin is compatible with current WP version */
-		bws_wp_version_check( plugin_basename( __FILE__ ), $rrrlgvwr_plugin_info, '3.8' );
+		bws_wp_min_version_check( plugin_basename( __FILE__ ), $rrrlgvwr_plugin_info, '3.8', '3.8' );
 	}
 }
 
@@ -98,12 +108,13 @@ if ( ! function_exists( 'rrrlgvwr_settings' ) ) {
 		global $rrrlgvwr_options, $rrrlgvwr_options_default, $rrrlgvwr_plugin_info;
 		
 		$rrrlgvwr_options_default = array(
-			'plugin_option_version'	=> $rrrlgvwr_plugin_info['Version'],
-			'php_error_log_visible'	=> 0,
-			'lines_count'			=> 10,
-			'confirm_filesize'		=> 0,
-			'error_log_path'		=> '',
-			'count_visible_log'		=> 0,
+			'plugin_option_version'		=> $rrrlgvwr_plugin_info['Version'],
+			'php_error_log_visible'		=> 0,
+			'lines_count'				=> 10,
+			'confirm_filesize'			=> 0,
+			'error_log_path'			=> '',
+			'count_visible_log'			=> 0,
+			'display_settings_notice'	=> 1,
 		);
 
 		if ( ! get_option( 'rrrlgvwr_options' ) )
@@ -113,70 +124,11 @@ if ( ! function_exists( 'rrrlgvwr_settings' ) ) {
 
 		/* Array merge incase this version has added new options */
 		if ( ! isset( $rrrlgvwr_options['plugin_option_version'] ) || $rrrlgvwr_options['plugin_option_version'] != $rrrlgvwr_plugin_info['Version'] ) { 
+			$rrrlgvwr_options_default['display_settings_notice'] = 0;
 			$rrrlgvwr_options							= array_merge( $rrrlgvwr_options_default, $rrrlgvwr_options );
 			$rrrlgvwr_options['plugin_option_version']	= $rrrlgvwr_plugin_info['Version'];
 			update_option( 'rrrlgvwr_options', $rrrlgvwr_options );
 		}	
-	}
-}
-
-/**
-* Function to add action links to the plugin menu
-*/
-if ( ! function_exists ( 'rrrlgvwr_plugin_action_links' ) ) { 
-	function rrrlgvwr_plugin_action_links( $links, $file ) { 
-		if ( ! is_network_admin() ) { 
-			/* Static so we don't call plugin_basename on every plugin row */
-			static $this_plugin;
-			if ( ! $this_plugin )
-				$this_plugin	= plugin_basename( __FILE__ );
-			if ( $file == $this_plugin ) { 
-				$settings_link	= '<a href="admin.php?page=rrrlgvwr.php&amp;tab=settings">' . __( 'Settings', 'error-log-viewer' ) . '</a>';
-				array_unshift( $links, $settings_link );
-			}
-		}
-		return $links;
-	}
-}
-
-/**
-* Function to add links to the plugin description on the plugins page
-*/
-if ( ! function_exists( 'rrrlgvwr_register_plugin_links' ) ) { 
-	function rrrlgvwr_register_plugin_links( $links, $file ) { 
-		$base	= plugin_basename( __FILE__ );
-		if ( $file == $base ) { 
-			if ( ! is_network_admin() )
-				$links[]	=	'<a href="admin.php?page=rrrlgvwr.php&amp;tab=settings">' . __( 'Settings', 'error-log-viewer' ) . '</a>';
-			$links[]	=	'<a href="http://wordpress.org/plugins/error-log-viewer" target="_blank">' . __( 'FAQ', 'error-log-viewer' ) . '</a>';
-			$links[]	=	'<a href="http://support.bestwebsoft.com">' . __( 'Support', 'error-log-viewer' ) . '</a>';
-		}
-		return $links;
-	}
-}
-
-/** 
-* Enqueue script and styles 
-*/
-if ( ! function_exists ( 'rrrlgvwr_admin_head' ) ) { 
-	function rrrlgvwr_admin_head() { 
-		global $rrrlgvwr_options;
-		if ( isset( $_REQUEST['page'] ) && 'rrrlgvwr.php' == $_REQUEST['page'] ) { 
-			wp_enqueue_script( 'rrrlgvwr_script', plugins_url( 'js/script.js', __FILE__ ), array( 'jquery' ) );
-			wp_enqueue_style( 'rrrlgvwr_stylesheet', plugins_url( 'css/style.css', __FILE__ ) );	
-			wp_enqueue_script( 'jquery-ui-datepicker' );
-			wp_enqueue_style( 'jquery-ui-datepicker-style' , '//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css');
-			
-			wp_localize_script( 
-				'rrrlgvwr_script',
-				'rrrlgvwr_confirm',
-				array(
-					'confirm_filesize'	=> $rrrlgvwr_options['confirm_filesize'],
-					'confirm_mes'		=> __( 'File size is more than 10 Mb. Are you sure you want to see full file?', 'error-log-viewer' ),
-					'clear_mes'			=> __( 'Are you sure you want to clear the file?', 'error-log-viewer' ),
-				)
-			);
-		}
 	}
 }
 
@@ -187,6 +139,8 @@ if ( ! function_exists( 'rrrlgvwr_settings_page' ) ) {
 	function rrrlgvwr_settings_page() { 
 		global $rrrlgvwr_options, $rrrlgvwr_options_default, $rrrlgvwr_plugin_info;
 		$message = $error = "";
+
+		$plugin_basename = plugin_basename( __FILE__ );
 
 		$error_logging_enabled	= ini_get( 'log_errors' ) && ( ini_get( 'log_errors' ) != 'Off' );									/* Check if error logging enabled on the server */
 		$php_error_path			= ini_get( 'error_log' );
@@ -209,7 +163,7 @@ if ( ! function_exists( 'rrrlgvwr_settings_page' ) ) {
 		}
 		
 		/* Save settings */
-		if ( isset( $_REQUEST['rrrlgvwr_settings_submit'] ) && check_admin_referer( plugin_basename( __FILE__ ), 'rrrlgvwr_nonce_name' ) ) { 
+		if ( isset( $_REQUEST['rrrlgvwr_settings_submit'] ) && check_admin_referer( $plugin_basename, 'rrrlgvwr_nonce_name' ) ) { 
 			/* Check for monitor file and search changes for sending email */
 			$rrrlgvwr_options['count_visible_log']		= 0;												/* Total count of log */
 			$rrrlgvwr_options['file_path']				= '';												/* Save files path for sender */
@@ -284,7 +238,7 @@ if ( ! function_exists( 'rrrlgvwr_settings_page' ) ) {
 		}
 
 		/* Show selected file with necessary settings */
-		if ( isset( $_POST['rrrlgvwr_submit_show_content'] ) && check_admin_referer( plugin_basename( __FILE__ ), 'rrrlgvwr_nonce_name' ) ) { 
+		if ( isset( $_POST['rrrlgvwr_submit_show_content'] ) && check_admin_referer( $plugin_basename, 'rrrlgvwr_nonce_name' ) ) { 
 			if ( isset( $_POST['rrrlgvwr_select_log'] ) ) { 
 				$rrrlgvwr_options['error_log_path']		= $_POST['rrrlgvwr_select_log'];
 				$rrrlgvwr_options['confirm_filesize']	= filesize( $rrrlgvwr_options['error_log_path'] );
@@ -294,7 +248,7 @@ if ( ! function_exists( 'rrrlgvwr_settings_page' ) ) {
 		}
 
 		/* Save content from textarea into the file in saved_logs */
-		if ( isset( $_POST['rrrlgvwr_save_content'] ) && check_admin_referer( plugin_basename( __FILE__ ), 'rrrlgvwr_nonce_name' ) ) { 
+		if ( isset( $_POST['rrrlgvwr_save_content'] ) && check_admin_referer( $plugin_basename, 'rrrlgvwr_nonce_name' ) ) { 
 			if ( isset( $_POST['rrrlgvwr_newcontent'] ) && ! empty( $_POST['rrrlgvwr_newcontent'] ) ) { 
 				$save_mes		= rrrlgvwr_save_file( $_POST['rrrlgvwr_newcontent'] );
 				if ( $save_mes == '' )
@@ -307,7 +261,7 @@ if ( ! function_exists( 'rrrlgvwr_settings_page' ) ) {
 		}
 
 		/* Clear selected log file */
-		if ( isset( $_POST['rrrlgvwr_clear_file'] ) && check_admin_referer( plugin_basename( __FILE__ ), 'rrrlgvwr_nonce_name' ) ) { 
+		if ( isset( $_POST['rrrlgvwr_clear_file'] ) && check_admin_referer( $plugin_basename, 'rrrlgvwr_nonce_name' ) ) { 
 			$clear_mes		= rrrlgvwr_clear_file( $_POST['rrrlgvwr_clear_file_name'] );
 			if ( $clear_mes == '' )
 				$message	= __( 'File was cleared successfully', 'error-log-viewer' );
@@ -355,25 +309,29 @@ if ( ! function_exists( 'rrrlgvwr_settings_page' ) ) {
 		}	
 
 		$saved_logs->rrrlgvwr_saved_file = $saved_logs_data;
-		$saved_logs->prepare_items(); ?>
+		$saved_logs->prepare_items(); 
+
+		if ( isset( $_REQUEST['bws_restore_confirm'] ) && check_admin_referer( $plugin_basename, 'bws_settings_nonce_name' ) ) {
+			$rrrlgvwr_options = $rrrlgvwr_options_default;
+			update_option( 'rrrlgvwr_options', $rrrlgvwr_options );
+			$message = __( 'All plugin settings were restored.', 'error-log-viewer' );
+		} ?>
 		<div class="wrap">
-			<div class="icon32 icon32-bws" id="icon-options-general"></div>
 			<h2><?php _e( 'Error Log Viewer Settings', 'error-log-viewer' ); ?></h2>
-			<h2 class="nav-tab-wrapper">
-				<?php if ( $rrrlgvwr_options['count_visible_log'] != 0 ) : ?>
-					<a class="nav-tab<?php if ( isset( $_GET['tab'] ) && 'logmonitor' == $_GET['tab'] || ! isset( $_GET['tab'] ) ) echo ' nav-tab-active'; ?>" href="admin.php?page=rrrlgvwr.php&amp;tab=logmonitor">
-						<?php _e( 'Log monitor' , 'error-log-viewer' ) ?>
-					</a>
-				<?php endif; ?>
-				<a class="nav-tab<?php if ( isset( $_GET['tab'] ) && 'settings' == $_GET['tab'] || ( ! isset( $_GET['tab'] ) && $rrrlgvwr_options['count_visible_log'] == 0 ) ) echo ' nav-tab-active'; ?>" href="admin.php?page=rrrlgvwr.php&amp;tab=settings"><?php _e( 'Settings', 'error-log-viewer' ); ?></a>
-				<a class="nav-tab" href="http://bestwebsoft.com/products/error-log-viewer" target="_blank"><?php _e( 'FAQ', 'error-log-viewer' ); ?></a>
-			</h2>
+			<?php if ( $rrrlgvwr_options['count_visible_log'] != 0 ) { ?>
+				<h2 class="nav-tab-wrapper">
+					<a class="nav-tab<?php if ( isset( $_GET['tab'] ) && 'logmonitor' == $_GET['tab'] || ! isset( $_GET['tab'] ) ) echo ' nav-tab-active'; ?>" href="admin.php?page=rrrlgvwr.php&amp;tab=logmonitor"><?php _e( 'Log monitor' , 'error-log-viewer' ) ?></a>
+					<a class="nav-tab<?php if ( isset( $_GET['tab'] ) && 'settings' == $_GET['tab'] || ( ! isset( $_GET['tab'] ) && $rrrlgvwr_options['count_visible_log'] == 0 ) ) echo ' nav-tab-active'; ?>" href="admin.php?page=rrrlgvwr.php&amp;tab=settings"><?php _e( 'Settings', 'error-log-viewer' ); ?></a>
+				</h2>
+			<?php }
+			bws_show_settings_notice(); ?>
 			<div class="updated fade" <?php if ( empty( $message ) || "" != $error ) echo "style=\"display:none\""; ?>><p><strong><?php echo $message; ?></strong></p></div>
-			<div id="rrrlgvwr-settings-notice" class="updated fade" style="display:none"><p><strong><?php _e( 'Notice:', 'error-log-viewer' ); ?></strong> <?php _e( "The plugin's settings have been changed. Please don't forget to click the 'Save Changes' button to save them.", 'error-log-viewer' ); ?></p></div>
 			<div class="error" <?php if ( "" == $error ) echo "style=\"display:none\""; ?>><p><strong><?php echo $error; ?></strong></p></div>
-			<?php if ( ! isset( $_GET['tab'] ) && $rrrlgvwr_options['count_visible_log'] == 0 || isset( $_GET['tab'] ) && 'settings' == $_GET['tab'] ) { ?>
-				<div id="rrrlgvwr-settings">
-					<form method="post" action="admin.php?page=rrrlgvwr.php&amp;tab=settings">
+			<?php if ( ! isset( $_GET['tab'] ) && $rrrlgvwr_options['count_visible_log'] == 0 || isset( $_GET['tab'] ) && 'settings' == $_GET['tab'] ) {
+				if ( isset( $_REQUEST['bws_restore_default'] ) && check_admin_referer( $plugin_basename, 'bws_settings_nonce_name' ) ) {
+					bws_form_restore_default_confirm( $plugin_basename );
+				} else { ?>
+					<form class="bws_form" method="post" action="admin.php?page=rrrlgvwr.php&amp;tab=settings">
 						<h3 class="title"><?php _e( 'PHP Error Log', 'error-log-viewer' ); ?></h3>
 						<?php if ( $error_logging_enabled && ( ! empty( $php_error_path ) ) && ( is_readable( $php_error_path ) ) ) { ?>
 							<table class="form-table">
@@ -486,7 +444,7 @@ if ( ! function_exists( 'rrrlgvwr_settings_page' ) ) {
 									</td>
 									<td>
 										<?php _e( 'Last update', 'error-log-viewer' );
-										echo ':' . date( 'Y-m-d H:i:s', filemtime( $file ) ); ?>
+										echo ': ' . date( 'Y-m-d H:i:s', filemtime( $file ) ); ?>
 									</td>
 								</tr>
 							<?php } ?>
@@ -527,13 +485,13 @@ if ( ! function_exists( 'rrrlgvwr_settings_page' ) ) {
 							</tr>
 						</table>
 						<p class="submit">
-							<input type="submit" name="rrrlgvwr_settings_submit" id="rrrlgvwr-settings-submit" value="<?php _e( 'Save Settings',  'error-log-viewer' );?>" class="button button-primary" />
-						</p>
-						<?php wp_nonce_field( plugin_basename( __FILE__ ), 'rrrlgvwr_nonce_name' ); ?>
-					</form>
-					<?php bws_plugin_reviews_block( $rrrlgvwr_plugin_info['Name'], 'error-log-viewer' ); ?>
-				</div>
-			<?php } elseif ( ! isset( $_GET['tab'] ) || isset( $_GET['tab'] ) && 'logmonitor' == $_GET['tab'] ) { ?>
+							<input id="bws-submit-button" type="submit" name="rrrlgvwr_settings_submit" value="<?php _e( 'Save Settings', 'error-log-viewer' );?>" class="button button-primary" />
+							<?php wp_nonce_field( $plugin_basename, 'rrrlgvwr_nonce_name' ); ?>
+						</p>						
+					</form>					
+					<?php bws_form_restore_default_settings( $plugin_basename );
+				}
+			} elseif ( ! isset( $_GET['tab'] ) || isset( $_GET['tab'] ) && 'logmonitor' == $_GET['tab'] ) { ?>
 				<form method="post" action="admin.php?page=rrrlgvwr.php&amp;tab=logmonitor">
 					<table class="form-table">
 						<tr valign="top">
@@ -573,7 +531,7 @@ if ( ! function_exists( 'rrrlgvwr_settings_page' ) ) {
 														$name		= str_replace ( substr( $file, 0, strripos( $file, '/' )+1 ), '', $file );
 														$subname	= substr( $name, 0, strpos( $name, '.' ) );
 														$subname	= $key . "_" . $subname . '_visible';
-														if ( $rrrlgvwr_options[ $subname ] == 1 ) {
+														if ( isset( $rrrlgvwr_options[ $subname ] ) && $rrrlgvwr_options[ $subname ] == 1 ) {
 															echo $name;
 															$rrrlgvwr_options['error_log_path'] = $file;
 															update_option( 'rrrlgvwr_options', $rrrlgvwr_options );
@@ -664,7 +622,7 @@ if ( ! function_exists( 'rrrlgvwr_settings_page' ) ) {
 											<?php _e( 'with size', 'error-log-viewer' );
 											echo ' ' . rrrlgvwr_file_size( $file );
 											_e( 'Last update', 'error-log-viewer' );
-											echo ' ' . date( 'Y-m-d H:i:s', filemtime( $file ) ); ?>
+											echo ': ' . date( 'Y-m-d H:i:s', filemtime( $file ) ); ?>
 										<span>
 									</th>
 								</tr>
@@ -675,17 +633,17 @@ if ( ! function_exists( 'rrrlgvwr_settings_page' ) ) {
 							</p>
 						<?php endif;
 					endif;
-					wp_nonce_field( plugin_basename( __FILE__ ), 'rrrlgvwr_nonce_name' ); ?>
+					wp_nonce_field( $plugin_basename, 'rrrlgvwr_nonce_name' ); ?>
 				</form>
 				<?php if ( ! empty( $rrrlgvwr_options['error_log_path'] ) && $rrrlgvwr_options['error_log_path'] == $php_error_path ) { ?>
 					<h3 class="title"><?php _e( 'Saved log files', 'error-log-viewer' ); ?></h3>
 					<form class="rrrlgvwr-saved-logs-table" method="post" action="admin.php?page=rrrlgvwr.php&amp;tab=logmonitor">
 						<?php $saved_logs->display(); 
-						wp_nonce_field( plugin_basename( __FILE__ ), 'rrrlgvwr_nonce_name' ); ?>
+						wp_nonce_field( $plugin_basename, 'rrrlgvwr_nonce_name' ); ?>
 					</form>
 				<?php }
-				bws_plugin_reviews_block( $rrrlgvwr_plugin_info['Name'], 'error-log-viewer' );
-			} ?>
+			}
+			bws_plugin_reviews_block( $rrrlgvwr_plugin_info['Name'], 'error-log-viewer' ); ?>
 		</div>
 	<?php }
 }
@@ -1145,6 +1103,88 @@ if ( file_exists( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' ) ) {
 	}
 }
 
+/** 
+* Enqueue script and styles 
+*/
+if ( ! function_exists ( 'rrrlgvwr_admin_head' ) ) { 
+	function rrrlgvwr_admin_head() { 
+		global $rrrlgvwr_options;
+		if ( isset( $_REQUEST['page'] ) && 'rrrlgvwr.php' == $_REQUEST['page'] ) { 
+			wp_enqueue_script( 'rrrlgvwr_script', plugins_url( 'js/script.js', __FILE__ ), array( 'jquery' ) );
+			wp_enqueue_style( 'rrrlgvwr_stylesheet', plugins_url( 'css/style.css', __FILE__ ) );	
+			wp_enqueue_script( 'jquery-ui-datepicker' );
+			wp_enqueue_style( 'jquery-ui-datepicker-style' , '//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css');
+			
+			wp_localize_script( 
+				'rrrlgvwr_script',
+				'rrrlgvwr_confirm',
+				array(
+					'confirm_filesize'	=> $rrrlgvwr_options['confirm_filesize'],
+					'confirm_mes'		=> __( 'File size is more than 10 Mb. Are you sure you want to see full file?', 'error-log-viewer' ),
+					'clear_mes'			=> __( 'Are you sure you want to clear the file?', 'error-log-viewer' ),
+				)
+			);
+		}
+	}
+}
+
+/**
+* Function to add action links to the plugin menu
+*/
+if ( ! function_exists ( 'rrrlgvwr_plugin_action_links' ) ) { 
+	function rrrlgvwr_plugin_action_links( $links, $file ) { 
+		if ( ! is_network_admin() ) { 
+			/* Static so we don't call plugin_basename on every plugin row */
+			static $this_plugin;
+			if ( ! $this_plugin )
+				$this_plugin	= plugin_basename( __FILE__ );
+			if ( $file == $this_plugin ) { 
+				$settings_link	= '<a href="admin.php?page=rrrlgvwr.php&amp;tab=settings">' . __( 'Settings', 'error-log-viewer' ) . '</a>';
+				array_unshift( $links, $settings_link );
+			}
+		}
+		return $links;
+	}
+}
+
+/**
+* Function to add links to the plugin description on the plugins page
+*/
+if ( ! function_exists( 'rrrlgvwr_register_plugin_links' ) ) { 
+	function rrrlgvwr_register_plugin_links( $links, $file ) { 
+		$base	= plugin_basename( __FILE__ );
+		if ( $file == $base ) { 
+			if ( ! is_network_admin() )
+				$links[]	=	'<a href="admin.php?page=rrrlgvwr.php&amp;tab=settings">' . __( 'Settings', 'error-log-viewer' ) . '</a>';
+			$links[]	=	'<a href="http://wordpress.org/plugins/error-log-viewer" target="_blank">' . __( 'FAQ', 'error-log-viewer' ) . '</a>';
+			$links[]	=	'<a href="http://support.bestwebsoft.com">' . __( 'Support', 'error-log-viewer' ) . '</a>';
+		}
+		return $links;
+	}
+}
+
+/* add admin notices */
+if ( ! function_exists ( 'rrrlgvwr_admin_notices' ) ) {
+	function rrrlgvwr_admin_notices() {
+		global $hook_suffix, $rrrlgvwr_plugin_info;
+		if ( 'plugins.php' == $hook_suffix ) {
+			bws_plugin_banner_to_settings( $rrrlgvwr_plugin_info, 'rrrlgvwr_options', 'error-log-viewer', 'admin.php?page=rrrlgvwr.php&amp;tab=settings' );
+		}
+	}
+}
+
+/* add help tab  */
+if ( ! function_exists( 'rrrlgvwr_add_tabs' ) ) {
+	function rrrlgvwr_add_tabs() {
+		$screen = get_current_screen();
+		$args = array(
+			'id' 			=> 'rrrlgvwr',
+			'section' 		=> '201247209'
+		);
+		bws_help_tab( $screen, $args );
+	}
+}
+
 /* Deactivate shedule */
 if ( ! function_exists( 'rrrlgvwr_shedule_deactivation' ) ) { 
 	function rrrlgvwr_shedule_deactivation() { 
@@ -1172,14 +1212,23 @@ if ( ! function_exists( 'rrrlgvwr_uninstall' ) ) {
 	}
 }
 
-add_action( 'admin_menu', 'rrrlgvwr_admin_menu' );							/* Add option page in admin menu */
-add_action( 'init', 'rrrlgvwr_init' );										/* Init Plugin */
-add_action( 'admin_init', 'rrrlgvwr_admin_init' );							/* Admin init */
-add_action( 'admin_enqueue_scripts', 'rrrlgvwr_admin_head' );				/* Enqueue script and style */
-add_filter( 'plugin_action_links', 'rrrlgvwr_plugin_action_links', 10, 2 );/* Function to add action links to the plugin menu. */
-add_filter( 'plugin_row_meta', 'rrrlgvwr_register_plugin_links', 10, 2 );	/* Function to add links to the plugin description on the plugins page. */
-add_action( 'rrrlgvwr_shedule_event', 'rrrlgvwr_send_log' );				/* Activation shedule */
-add_filter( 'cron_schedules', 'rrrlgvwr_interval_schedule' );				/* Cron shedules */
-
-register_deactivation_hook(__FILE__, 'rrrlgvwr_shedule_deactivation');		/* Deactivate shedule */
-register_uninstall_hook( __FILE__, 'rrrlgvwr_uninstall' );					/* Register uninstall hook */
+add_action( 'admin_menu', 'rrrlgvwr_admin_menu' );
+add_action( 'init', 'rrrlgvwr_init' );
+add_action( 'admin_init', 'rrrlgvwr_admin_init' );
+/* Plugin Internationalization */
+add_action( 'plugins_loaded', 'rrrlgvwr_plugins_loaded' );
+/* Enqueue script and style */
+add_action( 'admin_enqueue_scripts', 'rrrlgvwr_admin_head' );
+/* Function to add action links to the plugin menu. */
+add_filter( 'plugin_action_links', 'rrrlgvwr_plugin_action_links', 10, 2 );
+/* Function to add links to the plugin description on the plugins page. */
+add_filter( 'plugin_row_meta', 'rrrlgvwr_register_plugin_links', 10, 2 );
+/* add admin notices */
+add_action( 'admin_notices', 'rrrlgvwr_admin_notices' );
+/* Activation shedule */
+add_action( 'rrrlgvwr_shedule_event', 'rrrlgvwr_send_log' );
+/* Cron shedules */
+add_filter( 'cron_schedules', 'rrrlgvwr_interval_schedule' );
+		
+register_deactivation_hook(__FILE__, 'rrrlgvwr_shedule_deactivation' );		
+register_uninstall_hook( __FILE__, 'rrrlgvwr_uninstall' );					

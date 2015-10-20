@@ -1,6 +1,5 @@
 ( function( $ ) {
 	$( document ).ready( function() {
-
 		$( function() {
 			$( "#rrrlgvwr-from" ).datepicker( {
 				minDate: new Date( 2015, 0, 1 ), 
@@ -14,13 +13,6 @@
 					$( "#rrrlgvwr-from" ).datepicker( "option", "maxDate", selectedDate );
 				}
 			});
-		});
-
-		$( "#rrrlgvwr-settings input" ).bind( "click select", function() {
-			if ( $( this ).attr( "type" ) != 'submit' ) {
-				$( ".updated.fade" ).css( "display", "none" );
-				$( "#rrrlgvwr-settings-notice" ).css( "display", "block" );
-			};
 		});
 
 		$( ".rrrlgvwr-email-field" ).css( "display", "none" );
@@ -47,6 +39,5 @@
 		$( "#rrrlgvwr-clear-file" ).click( function() {
 			return confirm( clearmMes );
 		});
-
 	});
 })(jQuery);

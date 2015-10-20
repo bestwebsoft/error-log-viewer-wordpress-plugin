@@ -1,10 +1,10 @@
 === Error Log Viewer by BestWebSoft ===
 Contributors: bestwebsoft
 Donate link: http://bestwebsoft.com/donate/
-Tags: error log, error log viewer, php error log, wp error log, log errors, log, error, debug, debug tool, error reporting, display errors, log monitor, save log, find log.
+Tags: actions, activity, admin, add tool, add debug tool, add error log viewer, add eror log viewer, add log viewer, analytics, dashboard, best error log viewer, best error log plugin, best plugin, clear log, clear log files, debug, debug tool, display errors, email notification, error, eror, error log, error log viewer, free, free error log, free error log viewer, free error log plugin, php error log, wp error log, log errors, log, debug, debug tool, error reporting, display errors, log, log monitor, notification, save log, find log, search log, search  logs, select log, select logs, select logs by date, store log, store log files, tracking, wordpress log, wp error log, wp error log viewer, wp log, wordpress error log, wordpress error log viewer
 Requires at least: 3.8
-Tested up to: 4.3
-Stable tag: 1.0.0
+Tested up to: 4.3.1
+Stable tag: 1.0.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -14,9 +14,11 @@ Now it's easy to work with log files and folders on the WordPress server.
 
 This plugin finds and analyzes the log files on the WordPress folders and server, and allows you to work with them. You can select the files you want to work with. You can choose one of options for viewing the file: you can view only last lines, you can select logs by date, or you can view the full file. When there are changes in log files plugin can send notifications on your mail. Also there is a possibility to clear and store the log files.
 
-<a href="http://wordpress.org/plugins/error-log-viewer/faq/" target="_blank">Error Log Viewer FAQ</a>
+http://www.youtube.com/watch?v=8LR0F4GgXhM
 
-<a href="http://support.bestwebsoft.com" target="_blank">Error Log Viewer Support</a>
+<a href="http://wordpress.org/plugins/error-log-viewer/faq/" target="_blank">Error Log Viewer by BestWebSoft FAQ</a>
+
+<a href="http://support.bestwebsoft.com" target="_blank">Error Log Viewer by BestWebSoft Support</a>
 
 = Features =
 
@@ -55,22 +57,24 @@ We can fix some things for free for the users who provide a translation of our p
 2. Activate the plugin using the 'Plugins' menu in your WordPress admin panel.
 3. You can adjust the necessary settings using your WordPress admin panel in "BWS Plugins" > "Error Log Viewer".
 
+<a href="https://docs.google.com/document/d/1MSbArf3NiazpfFL-kbaSqTjJbVhlVYq_wtgbU1739A8/edit" target="_blank">View a Step-by-step Instruction on Error Log Viewer Installation</a>.
+
 == Frequently Asked Questions ==
 
-= Why I can’t select all three methods to enable debug? =
+= Why I can't select all three methods to enable debug? =
 
 Because all methods are equivalent, so when you turn on them all only one of them will work.
 There may be unwanted conflicts.
 
 = I clicked on the checkbox to receive notification about the logs to my mailbox. But the letters come less than it exposed in the settings. Why? =
 
-The function of notification sending implemented using Wordpress hook wp_shedule_event (). If during the chosen period of time the site has been inactive (no sign on it), this hook won’t work.
+The function of notification sending implemented using Wordpress hook wp_shedule_event (). If during the chosen period of time the site has been inactive (no sign on it), this hook won't work.
 
 = After creating a log file there are identical files appear in tabs PHP Error Log and WP Error Log. Why? =
  
 It depends on the configuration of your server. In the tab of the log viewing the file will be only one.
 
-= I can’t view, download or clear the log file. =
+= I can't view, download or clear the log file. =
 
 Probably there is a problem with access to files and folders. For more information, please go to <a href="https://codex.wordpress.org/Changing_File_Permissions" target="_blank">Changing File Permissions</a> 
 
@@ -92,7 +96,7 @@ If you don't have an access to '.htaccess', you can use file 'wp-config.php' to 
 
 3) Error logging via 'wp-config.php' using 'WP_DEBUG'
 
-This method is used for debugging errors using the WordPress PHP constants and declaring them in the 'wp-config.php' file. This is a standard WordPress debugging method. This is a very good method which is recommended for using on WordPress sites, but errors are recorded in the file 'debug.log' to the 'wp-content' directory. You can’t change the absolute path to file logs. This method is considered to be a priority on the WordPress sites. After declaring of these constants other methods won’t work. More information you can find here <a href="https://codex.wordpress.org/Debugging_in_WordPress" target="_blank">Errors Debugging on the WordPress</a>
+This method is used for debugging errors using the WordPress PHP constants and declaring them in the 'wp-config.php' file. This is a standard WordPress debugging method. This is a very good method which is recommended for using on WordPress sites, but errors are recorded in the file 'debug.log' to the 'wp-content' directory. You can't change the absolute path to file logs. This method is considered to be a priority on the WordPress sites. After declaring of these constants other methods won't work. More information you can find here <a href="https://codex.wordpress.org/Debugging_in_WordPress" target="_blank">Errors Debugging on the WordPress</a>
 
 = I have some problems with the plugin's work. What Information should I provide to receive proper support? =
 
@@ -110,14 +114,19 @@ Please make sure that the problem hasn't been discussed on our forum yet (<a hre
 3. Settings page for sending e-mail.
 4. PHP error log monitor.
 5. WP error log monitor.
-6. WP List Table for saved log files.
 
 == Changelog ==
+
+= V1.0.1 - 20.10.2015 =
+* NEW : We added ability to restore settings to defaults.
 
 = V1.0.0 - 08.09.2015 =
 * Release date of Error Log Viewer
 
 == Upgrade Notice ==
+
+= V1.0.1 =
+We added ability to restore settings to defaults.
 
 = V1.0.0 =
 * Release date of Error Log Viewer

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: error-log-viewer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-08 15:16+0300\n"
-"PO-Revision-Date: 2015-09-08 15:16+0300\n"
+"POT-Creation-Date: 2015-10-16 11:06+0300\n"
+"PO-Revision-Date: 2015-10-16 11:07+0300\n"
 "Last-Translator: bestwebsoft.com <plugins@bestwebsoft.com>\n"
 "Language-Team: bestwebsoft.com <plugin@bestwebsoft.com>\n"
 "Language: ru_RU\n"
@@ -18,401 +18,406 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: bws_menu\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: error-log-viewer.php:41
-#: error-log-viewer.php:360
+#: error-log-viewer.php:43
+#: error-log-viewer.php:320
 msgid "Error Log Viewer Settings"
 msgstr "Настройки плагина Error Log Viewer"
 
-#: error-log-viewer.php:133
-#: error-log-viewer.php:149
-#: error-log-viewer.php:367
-msgid "Settings"
-msgstr "Настройки"
-
-#: error-log-viewer.php:150
-#: error-log-viewer.php:368
-msgid "FAQ"
-msgstr "FAQ"
-
-#: error-log-viewer.php:151
-msgid "Support"
-msgstr "Тех. поддержка"
-
-#: error-log-viewer.php:174
-msgid "File size is more than 10 Mb. Are you sure you want to see full file?"
-msgstr "Размер файла больше 10 Мб. Вы уверены, что хотите просмотреть файл целиком?"
-
-#: error-log-viewer.php:175
-msgid "Are you sure you want to clear the file?"
-msgstr "Вы уверены, что хотите очистить файл?"
-
-#: error-log-viewer.php:199
+#: error-log-viewer.php:154
 msgid "Error logging on your server is disabled. Try to logging via WordPress function."
 msgstr "Протоколирование ошибок на вашем сервере отключено. Попробуйте включить его с помощью функций WordPress."
 
-#: error-log-viewer.php:201
+#: error-log-viewer.php:156
 msgid "Error log filename is not set. Try to logging via WordPress function."
 msgstr "Файл логов не установлен. Попробуйте воспользоваться функциями WordPress для его создания."
 
-#: error-log-viewer.php:203
+#: error-log-viewer.php:158
 #, php-format
 msgid "The current error_log value %s is not supported. Please change it to an absolute path."
 msgstr "Текущий путь к файлу логов  %s не поддерживается. Пожалуйста, введите полный путь."
 
-#: error-log-viewer.php:205
+#: error-log-viewer.php:160
 #, php-format
 msgid "The log file %s does not exist or is inaccessible."
 msgstr "Файл логов %s не существует или недоступен. "
 
-#: error-log-viewer.php:233
+#: error-log-viewer.php:188
 #, php-format
 msgid "File %s isn't readable, change permissions to the file"
 msgstr "Файл  %s не доступен для чтения, измените доступ к файлу"
 
-#: error-log-viewer.php:242
+#: error-log-viewer.php:197
 msgid "File '.htaccess' updated successfully and plugin create 'php-errors.log' in plugin log folder"
 msgstr "Файл  '.htaccess' успешно изменен, файл 'php-errors.log' создан в директории 'log' в директории планина"
 
-#: error-log-viewer.php:249
+#: error-log-viewer.php:204
 msgid "File 'wp-config' updated successfully and plugin create 'php-errors.log' in plugin log folder"
 msgstr "Файл  wp-config' успешно изменен, файл 'php-errors.log' создан в директории 'log' в директории планина"
 
-#: error-log-viewer.php:256
+#: error-log-viewer.php:211
 msgid "File 'wp-config' updated successfully and plugin create 'debug.log' in wp-content directory"
 msgstr "Файл  wp-config' успешно изменен, файл debug.log' создан в директории wp-content"
 
-#: error-log-viewer.php:274
+#: error-log-viewer.php:229
 msgid "Make sure that the email field isn't empty or you wrote an email correctly"
 msgstr "Убедитесь, что поле для ввода e-mail не пустое, и что вы ввели правильный e-mail адрес"
 
-#: error-log-viewer.php:277
+#: error-log-viewer.php:232
 msgid "Select at least one log file"
 msgstr "Выберите хотя бы один файл логов"
 
-#: error-log-viewer.php:281
+#: error-log-viewer.php:236
 msgid "Settings saved successfully"
 msgstr "Настройки успешно сохранены"
 
-#: error-log-viewer.php:300
+#: error-log-viewer.php:255
 msgid "File was saved successfully"
 msgstr "Файл сохранен успешно"
 
-#: error-log-viewer.php:302
+#: error-log-viewer.php:257
 msgid "Plugin couldn't save the file. Try to change permissions to the directory, or try again"
 msgstr "Плагин не может сохранить файл. Попробуйте изменить доступ к папке или попробуйте снова"
 
-#: error-log-viewer.php:312
+#: error-log-viewer.php:267
 msgid "File was cleared successfully"
 msgstr "Файл был успешно очищен"
 
-#: error-log-viewer.php:332
+#: error-log-viewer.php:287
 msgid "File was deleted successfully"
 msgstr "Файл был успешно удален"
 
-#: error-log-viewer.php:334
+#: error-log-viewer.php:289
 #, php-format
 msgid "Couldn't delete file %s, change permission to the 'wp-content' or 'error-log-viewer' plugin directory"
 msgstr "Плагин не может удалить указанный файл %s. Попробуйте изменить настройки доступа к директории плагина 'error-log-viewer' или  к папке 'wp-content'"
 
-#: error-log-viewer.php:350
+#: error-log-viewer.php:305
 msgid "Saved log from"
 msgstr "Сохраненные логи от"
 
-#: error-log-viewer.php:364
+#: error-log-viewer.php:317
+msgid "All plugin settings were restored."
+msgstr "Все настройки плагина восстановлены."
+
+#: error-log-viewer.php:323
 msgid "Log monitor"
 msgstr "Просмотр логов"
 
-#: error-log-viewer.php:371
-msgid "Notice:"
-msgstr "Уведомление: "
+#: error-log-viewer.php:324
+#: error-log-viewer.php:1142
+#: error-log-viewer.php:1158
+msgid "Settings"
+msgstr "Настройки"
 
-#: error-log-viewer.php:371
-msgid "The plugin's settings have been changed. Please don't forget to click the 'Save Changes' button to save them."
-msgstr "Настройки плагина были изменены. Не забудьте нажать кнопку 'Сохранить настройки' для сохранения изменений."
-
-#: error-log-viewer.php:376
+#: error-log-viewer.php:335
 msgid "PHP Error Log"
 msgstr "PHP Error Log"
 
-#: error-log-viewer.php:390
-#: error-log-viewer.php:482
+#: error-log-viewer.php:349
+#: error-log-viewer.php:441
 msgid "The file is empty"
 msgstr "Файл пустой"
 
-#: error-log-viewer.php:395
-#: error-log-viewer.php:487
-#: error-log-viewer.php:665
+#: error-log-viewer.php:354
+#: error-log-viewer.php:446
+#: error-log-viewer.php:624
 msgid "Last update"
 msgstr "Последние изменения"
 
-#: error-log-viewer.php:404
+#: error-log-viewer.php:363
 msgid "WordPress Error Log"
 msgstr "Логи Wordpress"
 
-#: error-log-viewer.php:406
+#: error-log-viewer.php:365
 msgid "Plugin didn't find log files in your Wordpress directory. You can create log file by yourself or using the plugin."
 msgstr "Плагин не нашел файлов логов в вашей папке Wordpress. Вы можете создать его самостоятельно или воспользоваться помощью плагина."
 
-#: error-log-viewer.php:412
-#: error-log-viewer.php:416
+#: error-log-viewer.php:371
+#: error-log-viewer.php:375
 msgid "Error logging via '.htaccess' using 'php_flag' and 'php_value'"
 msgstr "Протоколирование ошибок, с помощью '.htaccess' используя 'php_flag' и'php_value'"
 
-#: error-log-viewer.php:419
+#: error-log-viewer.php:378
 msgid "Add the following code in your '.htaccess' file and create 'php-errors.log' file in 'log' directory in the plugin folder"
 msgstr "Плагин добавит следующий код в ваш файл '.htaccess' и создаст файл 'php-errors.log' в директории 'log' в папке плагина"
 
-#: error-log-viewer.php:428
-#: error-log-viewer.php:433
+#: error-log-viewer.php:387
+#: error-log-viewer.php:392
 msgid "Error logging via 'wp-config.php' using 'ini_set'"
 msgstr "Протоколирование ошибок, с помощью 'wp-config.php' используя 'ini_set'"
 
-#: error-log-viewer.php:436
+#: error-log-viewer.php:395
 msgid "Add the following code in the 'wp-config.php' file and create 'php-errors.log' file in 'log' directory in the plugin folder"
 msgstr "Плагин добавит следующий код в ваш файл 'wp-config.php' и создаст файл 'php-errors.log' в директории 'log' в папке плагина"
 
-#: error-log-viewer.php:445
-#: error-log-viewer.php:450
+#: error-log-viewer.php:404
+#: error-log-viewer.php:409
 msgid "Error logging via 'wp-config.php' using 'WP_DEBUG'"
 msgstr "Протоколирование ошибок, с помощью 'wp-config.php' используя 'WP_DEBUG'"
 
-#: error-log-viewer.php:453
+#: error-log-viewer.php:412
 msgid "Add the following code in the 'wp-config.php' file and create 'debug.log' in the 'wp-content' directory"
 msgstr "Плагин добавит следующий код в ваш файл 'wp-config.php' и создаст файл 'debug.log' в директории 'wp-content'"
 
-#: error-log-viewer.php:461
+#: error-log-viewer.php:420
 msgid "Files '.htaccess' and 'wp-config.php' are very important for normal working of your site. Please save them necessarily before changes. You can create custom file for logging and edit required file by yourself. See also"
 msgstr "Файлы '.htaccess' и 'wp-config.php' очень важны для нормальной работы вашего сайта. Обязательно сохраните их до внесения изменений. Либо вы можете самостоятельно создать файл логов и внести необходимые изменения в соответсвующий файл. Узнать больше"
 
-#: error-log-viewer.php:462
+#: error-log-viewer.php:421
 msgid "Debugging on WordPress"
 msgstr "Отладка ошибок на сайте WordPress(англ.)"
 
-#: error-log-viewer.php:463
+#: error-log-viewer.php:422
 msgid "Editing"
 msgstr "Редактировать"
 
-#: error-log-viewer.php:493
+#: error-log-viewer.php:452
 msgid "Sending Settings"
 msgstr "Настройки отправки сообщений"
 
-#: error-log-viewer.php:499
+#: error-log-viewer.php:458
 msgid "Notify about new error logs (via email)"
 msgstr "Получать сообщения о возникновении новых ошибок"
 
-#: error-log-viewer.php:505
-#: error-log-viewer.php:509
+#: error-log-viewer.php:464
+#: error-log-viewer.php:468
 msgid "Email"
 msgstr "Электронная почта"
 
-#: error-log-viewer.php:515
-#: error-log-viewer.php:518
+#: error-log-viewer.php:474
+#: error-log-viewer.php:477
 msgid "Send every"
 msgstr "Слать письмо каждые"
 
-#: error-log-viewer.php:521
+#: error-log-viewer.php:480
 msgid "Hour"
 msgstr "Час"
 
-#: error-log-viewer.php:522
+#: error-log-viewer.php:481
 msgid "Day"
 msgstr "День"
 
-#: error-log-viewer.php:529
+#: error-log-viewer.php:488
 msgid "Save Settings"
 msgstr "Сохранить настройки"
 
-#: error-log-viewer.php:539
-#: error-log-viewer.php:543
-#: error-log-viewer.php:564
-#: error-log-viewer.php:658
+#: error-log-viewer.php:498
+#: error-log-viewer.php:502
+#: error-log-viewer.php:523
+#: error-log-viewer.php:617
 msgid "File"
 msgstr "Файл"
 
-#: error-log-viewer.php:588
-#: error-log-viewer.php:591
+#: error-log-viewer.php:547
+#: error-log-viewer.php:550
 msgid "Show"
 msgstr "Показать"
 
-#: error-log-viewer.php:594
+#: error-log-viewer.php:553
 msgid "last"
 msgstr "последние"
 
-#: error-log-viewer.php:596
+#: error-log-viewer.php:555
 msgid "lines"
 msgstr "строк"
 
-#: error-log-viewer.php:600
+#: error-log-viewer.php:559
 msgid "log from"
 msgstr "логи от "
 
-#: error-log-viewer.php:602
-#: error-log-viewer.php:608
+#: error-log-viewer.php:561
+#: error-log-viewer.php:567
 msgid "to"
 msgstr "до"
 
-#: error-log-viewer.php:607
+#: error-log-viewer.php:566
 msgid "JavaScript is disable on your site. To search logs by dates, please enter in the first and second field dates among which you want see the log. Your entry should look like"
 msgstr "JavaScript отключен на вашем сайте. Для поиска логов по дате вы должны ввести в первое и второе поле даты, между которыми вы хотите найти логи. Ваша запись должна выглядеть таким образом."
 
-#: error-log-viewer.php:609
+#: error-log-viewer.php:568
 msgid "The first two numbers means month, the second two numbers means day of months, the last four numbers means year"
 msgstr "Первые две числа обозначают месяц, вторые два числа обозначают день, последние четыре числа означают год."
 
-#: error-log-viewer.php:614
+#: error-log-viewer.php:573
 msgid "full file"
 msgstr "просмотр файла целиком"
 
-#: error-log-viewer.php:618
+#: error-log-viewer.php:577
 msgid "File size is more than 10 Mb. Be careful to check this option"
 msgstr "Размер файла больше 10 Мб. Будьте осторожны, выбирая эту опцию"
 
-#: error-log-viewer.php:626
-#: error-log-viewer.php:1111
+#: error-log-viewer.php:585
+#: error-log-viewer.php:1070
 msgid "View"
 msgstr "Просмотр"
 
-#: error-log-viewer.php:628
+#: error-log-viewer.php:587
 msgid "or"
 msgstr "или"
 
-#: error-log-viewer.php:629
+#: error-log-viewer.php:588
 msgid "Save as TXT file"
 msgstr "Сохранить как TXT файл"
 
-#: error-log-viewer.php:663
+#: error-log-viewer.php:622
 msgid "with size"
 msgstr "весит"
 
-#: error-log-viewer.php:672
+#: error-log-viewer.php:631
 msgid "Clear log file"
 msgstr "Очистить файл"
 
-#: error-log-viewer.php:680
+#: error-log-viewer.php:639
 msgid "Saved log files"
 msgstr "Сохраненные файлы логов"
 
-#: error-log-viewer.php:707
+#: error-log-viewer.php:666
 #, php-format
 msgid "Directory %s is not exists, or isn't readable"
 msgstr "Директория %s не существует или недоступна"
 
-#: error-log-viewer.php:730
-#: error-log-viewer.php:752
+#: error-log-viewer.php:689
+#: error-log-viewer.php:711
 #, php-format
 msgid "File %s is not exists"
 msgstr "Файл %s не существует"
 
-#: error-log-viewer.php:788
-#: error-log-viewer.php:814
-#: error-log-viewer.php:830
-#: error-log-viewer.php:859
+#: error-log-viewer.php:747
+#: error-log-viewer.php:773
+#: error-log-viewer.php:789
+#: error-log-viewer.php:818
 #, php-format
 msgid "Couldn't open the file %s. Make sure file is exists or is readable."
 msgstr "Невозможно открыть файл %s. Убедитесь, что он существует или доступен для чтения"
 
-#: error-log-viewer.php:811
+#: error-log-viewer.php:770
 #, php-format
 msgid "No log in search date from %s to %s"
 msgstr "Нет логов в выброанные даты с %s по %s"
 
-#: error-log-viewer.php:846
+#: error-log-viewer.php:805
 msgid "Plugin couldn't saved the file, change permissions to the 'wp-content' or 'error-log-viewer' plugin directory, or try again"
 msgstr "Плагин не может сохранить файл. Попробуйте изменить доступ к папке 'wp-content' или папке плагина 'error-log-viewer' или попробуйте снова"
 
-#: error-log-viewer.php:848
+#: error-log-viewer.php:807
 msgid "Plugin couldn't open the 'error-log-viewer' plugin directory, try to change permission to the 'wp-content' or 'error-log-viewer' plugin directory and try again"
 msgstr "Плагин не может открыть папку 'error-log', попробуйте изменить настройки доступа к папке 'wp-content' или к папке 'error-log-viewer' и попробуйте снова"
 
-#: error-log-viewer.php:882
-#: error-log-viewer.php:892
+#: error-log-viewer.php:841
+#: error-log-viewer.php:851
 msgid "File '.htaccess' contains the following code, but plugin couldn't create 'php-errors.log', change permissions to the 'wp-content' or 'error-log-viewer' plugin directory, or create this file by yourself"
 msgstr "Файл '.htaccess' содержит необходимый код, но плагин не может создать файл 'php-errors.log', попробуйте изменить настройки доступа к папке плагина'error-log-viewer'  или к папке wp-content, или создайте его самостоятельно"
 
-#: error-log-viewer.php:893
+#: error-log-viewer.php:852
 msgid "File '.htaccess' already contains this code"
 msgstr "Файл '.htaccess' уже содержит необходимый код"
 
-#: error-log-viewer.php:896
+#: error-log-viewer.php:855
 msgid "File '.htaccess' isn't available. Please change permissions to the file, or try the next method"
 msgstr "Файл  '.htaccess' не доступен. Попробуйте изменить настройки доступа к нему или попробуйте другой способ"
 
-#: error-log-viewer.php:931
-#: error-log-viewer.php:941
+#: error-log-viewer.php:890
+#: error-log-viewer.php:900
 msgid "File 'wp-config.php' contains the following code, but plugin couldn't create 'php-errors.log', change permissions to the 'wp-content' or 'error-log-viewer' plugin directory, or create this file by yourself"
 msgstr "Файл 'wp-config.php' содержит необходимый код, но плагин не может создать файл 'php-errors.log', попробуйте изменить настройки доступа к папке плагина 'error-log-viewer' или к папке 'wp-content' , или создайте его самостоятельно"
 
+#: error-log-viewer.php:901
 #: error-log-viewer.php:942
-#: error-log-viewer.php:983
 msgid "File 'wp-config.php' already contains this code"
 msgstr "Файл  'wp-config.php' уже содержит необходимый код"
 
+#: error-log-viewer.php:904
 #: error-log-viewer.php:945
-#: error-log-viewer.php:986
 msgid "Plugin couldn't open and rewritable 'wp-config.php', change permissions to the file, or try the next method"
 msgstr "Файл 'wp-config.php' недоступен для записи. Попробуйте изменить настройки доступа или попробуйте другой способ"
 
-#: error-log-viewer.php:977
-#: error-log-viewer.php:982
+#: error-log-viewer.php:936
+#: error-log-viewer.php:941
 msgid "File 'wp-config.php' contains the following code, but plugin couldn't create 'debug.log', change permissions to the 'wp-content' directory, or create this file by yourself"
 msgstr "Файл 'wp-config.php' содержит необходимый код, но плагин не может создать файл 'debug.log', попробуйте изменить настройки доступа к папке 'wp-content', или создайте его самостоятельно"
 
-#: error-log-viewer.php:1008
+#: error-log-viewer.php:967
 msgid "hour"
 msgstr "часов"
 
-#: error-log-viewer.php:1010
+#: error-log-viewer.php:969
 msgid "day"
 msgstr "дней"
 
-#: error-log-viewer.php:1011
+#: error-log-viewer.php:970
 msgid "Saved file from "
 msgstr "Сохраненные логи от"
 
-#: error-log-viewer.php:1020
+#: error-log-viewer.php:979
 msgid "During the last"
 msgstr "В течении предыдущих"
 
-#: error-log-viewer.php:1020
+#: error-log-viewer.php:979
 msgid "file"
 msgstr "файл"
 
-#: error-log-viewer.php:1020
+#: error-log-viewer.php:979
 msgid "have been changed"
 msgstr "был изменен"
 
-#: error-log-viewer.php:1031
+#: error-log-viewer.php:990
 msgid "No new errors on your site"
 msgstr "На вашем сайте новых ошибок не появлялось"
 
-#: error-log-viewer.php:1033
+#: error-log-viewer.php:992
 msgid "For more information go to the"
 msgstr "Для получения более полной информации перейдите по ссылке"
 
-#: error-log-viewer.php:1046
+#: error-log-viewer.php:1005
 msgid "Send Email Interval"
 msgstr "Интервал отправки писем"
 
-#: error-log-viewer.php:1074
+#: error-log-viewer.php:1033
 msgid "Link"
 msgstr "Ссылка"
 
-#: error-log-viewer.php:1075
+#: error-log-viewer.php:1034
 msgid "Date"
 msgstr "Дата"
 
-#: error-log-viewer.php:1076
+#: error-log-viewer.php:1035
 msgid "Size"
 msgstr "Размер"
 
-#: error-log-viewer.php:1097
+#: error-log-viewer.php:1056
 msgid "There are no saved files"
 msgstr "Нет сохраненных файлов"
 
-#: error-log-viewer.php:1112
-#: error-log-viewer.php:1120
+#: error-log-viewer.php:1071
+#: error-log-viewer.php:1079
 msgid "Delete"
 msgstr "Удалить"
+
+#: error-log-viewer.php:1123
+msgid "File size is more than 10 Mb. Are you sure you want to see full file?"
+msgstr "Размер файла больше 10 Мб. Вы уверены, что хотите просмотреть файл целиком?"
+
+#: error-log-viewer.php:1124
+msgid "Are you sure you want to clear the file?"
+msgstr "Вы уверены, что хотите очистить файл?"
+
+#: error-log-viewer.php:1159
+msgid "FAQ"
+msgstr "FAQ"
+
+#: error-log-viewer.php:1160
+msgid "Support"
+msgstr "Тех. поддержка"
+
+#~ msgid "Notice:"
+#~ msgstr "Уведомление: "
+
+#~ msgid ""
+#~ "The plugin's settings have been changed. Please don't forget to click the "
+#~ "'Save Changes' button to save them."
+#~ msgstr ""
+#~ "Настройки плагина были изменены. Не забудьте нажать кнопку 'Сохранить "
+#~ "настройки' для сохранения изменений."
 
 #~ msgid "Error Log Viewer"
 #~ msgstr "Error Log Viewer"
