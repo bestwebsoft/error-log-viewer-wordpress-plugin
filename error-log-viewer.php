@@ -6,7 +6,7 @@ Description:Easy work with your error log files on the server and in the WordPre
 Author: BestWebSoft
 Text Domain: error-log-viewer
 Domain Path: /languages
-Version: 1.0.1
+Version: 1.0.2
 Author URI: http://bestwebsoft.com/
 License: GNU General Public License V3
 */
@@ -37,7 +37,7 @@ License: GNU General Public License V3
 */
 if ( ! function_exists( 'rrrlgvwr_admin_menu' ) ) { 
 	function rrrlgvwr_admin_menu() { 
-		bws_add_general_menu( plugin_basename( __FILE__ ) );
+		bws_general_menu();
 		$settings = add_submenu_page( 
 			'bws_plugins',
 			__( 'Error Log Viewer Settings', 'error-log-viewer' ),
@@ -114,7 +114,9 @@ if ( ! function_exists( 'rrrlgvwr_settings' ) ) {
 			'confirm_filesize'			=> 0,
 			'error_log_path'			=> '',
 			'count_visible_log'			=> 0,
-			'display_settings_notice'	=> 1,
+			'frequency_send'			=> 1,
+			'hour_day'					=> 3600,
+			'display_settings_notice'	=> 1
 		);
 
 		if ( ! get_option( 'rrrlgvwr_options' ) )
@@ -317,7 +319,7 @@ if ( ! function_exists( 'rrrlgvwr_settings_page' ) ) {
 			$message = __( 'All plugin settings were restored.', 'error-log-viewer' );
 		} ?>
 		<div class="wrap">
-			<h2><?php _e( 'Error Log Viewer Settings', 'error-log-viewer' ); ?></h2>
+			<h1><?php _e( 'Error Log Viewer Settings', 'error-log-viewer' ); ?></h1>
 			<?php if ( $rrrlgvwr_options['count_visible_log'] != 0 ) { ?>
 				<h2 class="nav-tab-wrapper">
 					<a class="nav-tab<?php if ( isset( $_GET['tab'] ) && 'logmonitor' == $_GET['tab'] || ! isset( $_GET['tab'] ) ) echo ' nav-tab-active'; ?>" href="admin.php?page=rrrlgvwr.php&amp;tab=logmonitor"><?php _e( 'Log monitor' , 'error-log-viewer' ) ?></a>
@@ -475,10 +477,10 @@ if ( ! function_exists( 'rrrlgvwr_settings_page' ) ) {
 								<td>
 									<fieldset>
 										<legend class="screen-reader-text"><span><?php _e( 'Send every', 'error-log-viewer'); ?></span> </legend>
-										<input type="number" class="small-text" min="1" name="rrrlgvwr_frequency_send" value="<?php if ( isset( $rrrlgvwr_options['frequency_send'] ) ) echo $rrrlgvwr_options['frequency_send']; else echo 1; ?>" />
+										<input type="number" class="small-text" min="1" name="rrrlgvwr_frequency_send" value="<?php echo $rrrlgvwr_options['frequency_send']; ?>" />
 										<select name="rrrlgvwr_hour_day">
-											<option value="3600" <?php if ( isset( $rrrlgvwr_options['hour_day'] ) && $rrrlgvwr_options['hour_day'] == 3600 ) echo 'selected="selected"'; ?>><?php _e( 'Hour', 'error-log-viewer' ); ?></option>
-											<option value="86400" <?php if ( isset( $rrrlgvwr_options['hour_day'] ) && $rrrlgvwr_options['hour_day'] == 86400 ) echo 'selected="selected"'; ?>><?php _e( 'Day', 'error-log-viewer' ); ?></option>
+											<option value="3600" <?php if ( $rrrlgvwr_options['hour_day'] == 3600 ) echo 'selected="selected"'; ?>><?php _e( 'Hour', 'error-log-viewer' ); ?></option>
+											<option value="86400" <?php if ( $rrrlgvwr_options['hour_day'] == 86400 ) echo 'selected="selected"'; ?>><?php _e( 'Day', 'error-log-viewer' ); ?></option>
 										</select>
 									</fieldset>
 								</td>
@@ -496,7 +498,7 @@ if ( ! function_exists( 'rrrlgvwr_settings_page' ) ) {
 					<table class="form-table">
 						<tr valign="top">
 							<th scope="row"><?php _e( 'File', 'error-log-viewer' ); ?></th>
-							<?php if ( isset( $rrrlgvwr_options['count_visible_log'] ) && $rrrlgvwr_options['count_visible_log']>1 ) { ?>
+							<?php if ( isset( $rrrlgvwr_options['count_visible_log'] ) && $rrrlgvwr_options['count_visible_log'] > 1 ) { ?>
 								<td>
 									<fieldset>
 										<legend class="screen-reader-text"><span><?php _e( 'File', 'error-log-viewer' ); ?></span></legend>
