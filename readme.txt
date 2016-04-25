@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: http://bestwebsoft.com/donate/
 Tags: actions, activity, admin, add tool, add debug tool, add error log viewer, add eror log viewer, add log viewer, analytics, dashboard, best error log viewer, best error log plugin, best plugin, clear log, clear log files, debug, debug tool, display errors, email notification, error, eror, error log, error log viewer, free, free error log, free error log viewer, free error log plugin, php error log, wp error log, log errors, log, debug, debug tool, error reporting, display errors, log, log monitor, notification, save log, find log, search log, search  logs, select log, select logs, select logs by date, store log, store log files, tracking, wordpress log, wp error log, wp error log viewer, wp log, wordpress error log, wordpress error log viewer
 Requires at least: 3.8
-Tested up to: 4.4
-Stable tag: 1.0.2
+Tested up to: 4.5
+Stable tag: 1.0.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -29,6 +29,8 @@ http://www.youtube.com/watch?v=8LR0F4GgXhM
 * Viewing the log files by date
 * Viewing the log files fully
 
+If you have a feature, suggestion or idea you'd like to see in the plugin, we'd love to hear about it! <a href="http://support.bestwebsoft.com/hc/en-us/requests/new" target="_blank">Suggest a Feature</a>
+
 = Recommended Plugins = 
 
 The author of the Error Log Viewer also recommends the following plugins:
@@ -45,7 +47,7 @@ If you would like to create your own language pack or update the existing one, y
 
 = Technical support =
 
-Dear users, our plugins are available for free download. If you have any questions or recommendations regarding the functionality of our plugins (existing options, new options, current issues), please feel free to contact us. Please note that we accept requests in English only. All messages in another languages won't be accepted.
+Dear users, our plugins are available for free download. If you have any questions or recommendations regarding the functionality of our plugins (existing options, new options, current issues), please feel free to contact us. Please note that we accept requests in English only. All messages in other languages won't be accepted.
 
 If you notice any bugs in the plugin's work, you can notify us about them and we'll investigate and fix the issue then. Your request should contain website URL, issues description and WordPress admin panel credentials.
 Moreover, we can customize the plugin according to your requirements. It's a paid service (as a rule it costs $40, but the price can vary depending on the amount of the necessary changes and their complexity). Please note that we could also include this or that feature (developed for you) in the next release and share with the other users then.
@@ -117,6 +119,9 @@ Please make sure that the problem hasn't been discussed on our forum yet (<a hre
 
 == Changelog ==
 
+= V1.0.3 - 25.04.2016 =
+* Update : We updated all functionality for wordpress 4.5.
+
 = V1.0.2 - 09.12.2015 =
 * Bugfix : The bug with plugin menu duplicating was fixed.
 
@@ -127,6 +132,9 @@ Please make sure that the problem hasn't been discussed on our forum yet (<a hre
 * Release date of Error Log Viewer
 
 == Upgrade Notice ==
+
+= V1.0.3 =
+We updated all functionality for wordpress 4.5.
 
 = V1.0.2 =
 The bug with plugin menu duplicating was fixed.

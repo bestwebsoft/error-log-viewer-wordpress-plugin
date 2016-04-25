@@ -6,12 +6,12 @@ Description:Easy work with your error log files on the server and in the WordPre
 Author: BestWebSoft
 Text Domain: error-log-viewer
 Domain Path: /languages
-Version: 1.0.2
+Version: 1.0.3
 Author URI: http://bestwebsoft.com/
 License: GNU General Public License V3
 */
 
-/*  @ Copyright 2015  BestWebSoft  ( http://support.bestwebsoft.com )
+/*  @ Copyright 2016  BestWebSoft  ( http://support.bestwebsoft.com )
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License, version 2, as
@@ -116,7 +116,8 @@ if ( ! function_exists( 'rrrlgvwr_settings' ) ) {
 			'count_visible_log'			=> 0,
 			'frequency_send'			=> 1,
 			'hour_day'					=> 3600,
-			'display_settings_notice'	=> 1
+			'display_settings_notice'	=> 1,
+			'suggest_feature_banner'	=> 1
 		);
 
 		if ( ! get_option( 'rrrlgvwr_options' ) )
@@ -192,7 +193,7 @@ if ( ! function_exists( 'rrrlgvwr_settings_page' ) ) {
 			}
 			/* Create log if not exists */
 			if ( isset( $_POST['rrrlgvwr_create_log'] ) ) { 
-				switch( $_POST['rrrlgvwr_create_log'] ) { 
+				switch ( $_POST['rrrlgvwr_create_log'] ) { 
 					case 'htaccess':
 						$create_mes		= rrrlgvwr_edit_htaccess();
 						if ( empty( $create_mes ) )
@@ -327,8 +328,8 @@ if ( ! function_exists( 'rrrlgvwr_settings_page' ) ) {
 				</h2>
 			<?php }
 			bws_show_settings_notice(); ?>
-			<div class="updated fade" <?php if ( empty( $message ) || "" != $error ) echo "style=\"display:none\""; ?>><p><strong><?php echo $message; ?></strong></p></div>
-			<div class="error" <?php if ( "" == $error ) echo "style=\"display:none\""; ?>><p><strong><?php echo $error; ?></strong></p></div>
+			<div class="updated fade below-h2" <?php if ( empty( $message ) || "" != $error ) echo "style=\"display:none\""; ?>><p><strong><?php echo $message; ?></strong></p></div>
+			<div class="error below-h2" <?php if ( "" == $error ) echo "style=\"display:none\""; ?>><p><strong><?php echo $error; ?></strong></p></div>
 			<?php if ( ! isset( $_GET['tab'] ) && $rrrlgvwr_options['count_visible_log'] == 0 || isset( $_GET['tab'] ) && 'settings' == $_GET['tab'] ) {
 				if ( isset( $_REQUEST['bws_restore_default'] ) && check_admin_referer( $plugin_basename, 'bws_settings_nonce_name' ) ) {
 					bws_form_restore_default_confirm( $plugin_basename );
@@ -998,10 +999,13 @@ if ( ! function_exists( 'rrrlgvwr_send_log' ) ) {
 
 
 /* Cron Shedules */
-if ( ! function_exists('rrrlgvwr_interval_schedule') ) { 
+if ( ! function_exists( 'rrrlgvwr_interval_schedule' ) ) { 
 	function rrrlgvwr_interval_schedule( $schedules ) { 
-		$rrrlgvwr_options	= get_option( 'rrrlgvwr_options' );
-		$interval		= $rrrlgvwr_options['frequency_send']*$rrrlgvwr_options['hour_day'];
+		global $rrrlgvwr_options;
+		if ( empty( $rrrlgvwr_options ) )
+			rrrlgvwr_settings();
+		
+		$interval = $rrrlgvwr_options['frequency_send']*$rrrlgvwr_options['hour_day'];		
 		$schedules['rrrlgvwr_interval'] = array(
 			'interval'	=> $interval,
 			'display'	=> __( 'Send Email Interval', 'error-log-viewer' ),
@@ -1172,6 +1176,9 @@ if ( ! function_exists ( 'rrrlgvwr_admin_notices' ) ) {
 		if ( 'plugins.php' == $hook_suffix ) {
 			bws_plugin_banner_to_settings( $rrrlgvwr_plugin_info, 'rrrlgvwr_options', 'error-log-viewer', 'admin.php?page=rrrlgvwr.php&amp;tab=settings' );
 		}
+		if ( isset( $_GET['page'] ) && 'rrrlgvwr.php' == $_GET['page'] ) {
+			bws_plugin_suggest_feature_banner( $rrrlgvwr_plugin_info, 'rrrlgvwr_options', 'error-log-viewer' );
+		}
 	}
 }
 
@@ -1211,6 +1218,10 @@ if ( ! function_exists( 'rrrlgvwr_uninstall' ) ) {
 		} else {
 			delete_option( 'rrrlgvwr_options' );
 		}		
+
+		require_once( dirname( __FILE__ ) . '/bws_menu/bws_include.php' );
+		bws_include_init( plugin_basename( __FILE__ ) );
+		bws_delete_plugin( plugin_basename( __FILE__ ) );
 	}
 }
 
