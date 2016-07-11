@@ -1,12 +1,12 @@
 <?php 
 /*
 Plugin Name: Error Log Viewer by BestWebSoft
-Plugin URI: http://bestwebsoft.com/products
-Description:Easy work with your error log files on the server and in the WordPress folder. Analize, monitor, clear, download.
+Plugin URI: http://bestwebsoft.com/products/error-log-viewer/
+Description: Get latest error log messages to diagnose website problems. Define and fix issues faster.
 Author: BestWebSoft
 Text Domain: error-log-viewer
 Domain Path: /languages
-Version: 1.0.3
+Version: 1.0.4
 Author URI: http://bestwebsoft.com/
 License: GNU General Public License V3
 */
@@ -28,7 +28,7 @@ License: GNU General Public License V3
 */
 
 /**
-* Add Wordpress page 'bws_plugins' and sub-page of this plugin to admin-panel.
+* Add Wordpress page 'bws_panel' and sub-page of this plugin to admin-panel.
 * @return void
 */
 
@@ -39,7 +39,7 @@ if ( ! function_exists( 'rrrlgvwr_admin_menu' ) ) {
 	function rrrlgvwr_admin_menu() { 
 		bws_general_menu();
 		$settings = add_submenu_page( 
-			'bws_plugins',
+			'bws_panel',
 			__( 'Error Log Viewer Settings', 'error-log-viewer' ),
 			'Error Log Viewer',
 			'manage_options',
@@ -76,7 +76,7 @@ if ( ! function_exists ( 'rrrlgvwr_init' ) ) {
 		}
 
 		/* Function check if plugin is compatible with current WP version */
-		bws_wp_min_version_check( plugin_basename( __FILE__ ), $rrrlgvwr_plugin_info, '3.8', '3.8' );
+		bws_wp_min_version_check( plugin_basename( __FILE__ ), $rrrlgvwr_plugin_info, '3.8' );
 	}
 }
 
@@ -88,7 +88,7 @@ if ( ! function_exists( 'rrrlgvwr_admin_init' ) ) {
 		/* Add variable for bws_menu */
 		global $bws_plugin_info, $rrrlgvwr_plugin_info;
 
-		if ( ! $bws_plugin_info || empty( $bws_plugin_info ) )
+		if ( empty( $bws_plugin_info ) )
 			$bws_plugin_info = array(
 				'id'		=> '301',
 				'version'	=> $rrrlgvwr_plugin_info['Version'],

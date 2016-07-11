@@ -1,14 +1,14 @@
 === Error Log Viewer by BestWebSoft ===
 Contributors: bestwebsoft
 Donate link: http://bestwebsoft.com/donate/
-Tags: actions, activity, admin, add tool, add debug tool, add error log viewer, add eror log viewer, add log viewer, analytics, dashboard, best error log viewer, best error log plugin, best plugin, clear log, clear log files, debug, debug tool, display errors, email notification, error, eror, error log, error log viewer, free, free error log, free error log viewer, free error log plugin, php error log, wp error log, log errors, log, debug, debug tool, error reporting, display errors, log, log monitor, notification, save log, find log, search log, search  logs, select log, select logs, select logs by date, store log, store log files, tracking, wordpress log, wp error log, wp error log viewer, wp log, wordpress error log, wordpress error log viewer
+Tags: add debug tool, error log, error log viewer, php error log, debug tool, clear log, display errors, error, eror, error reporting, save log, find log
 Requires at least: 3.8
-Tested up to: 4.5
-Stable tag: 1.0.3
+Tested up to: 4.5.3
+Stable tag: 1.0.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Now it's easy to work with log files and folders on the WordPress server.
+Get latest error log messages to diagnose website problems. Define and fix issues faster.
 
 == Description ==
 
@@ -43,7 +43,7 @@ There is also a premium version of the plugin <a href="http://bestwebsoft.com/pr
 * Russian (ru_RU)
 * Ukrainian (uk)
 
-If you would like to create your own language pack or update the existing one, you can send <a href="http://codex.wordpress.org/Translating_WordPress" target="_blank">the text of PO and MO files</a> to <a href="http://support.bestwebsoft.com" target="_blank">BestWebSoft</a>, and we'll add it to the plugin. You can download the latest version of the program for working with PO and MO files  <a href="http://www.poedit.net/download.php" target="_blank">Poedit</a>.
+If you would like to create your own language pack or update the existing one, you can send <a href="http://codex.wordpress.org/Translating_WordPress" target="_blank">the text of PO and MO files</a> to <a href="http://support.bestwebsoft.com/hc/en-us/requests/new" target="_blank">BestWebSoft</a>, and we'll add it to the plugin. You can download the latest version of the program for working with PO and MO files  <a href="http://www.poedit.net/download.php" target="_blank">Poedit</a>.
 
 = Technical support =
 
@@ -57,7 +57,7 @@ We can fix some things for free for the users who provide a translation of our p
 
 1. Upload the `error-log-viewer` folder to `/wp-content/plugins/` directory.
 2. Activate the plugin using the 'Plugins' menu in your WordPress admin panel.
-3. You can adjust the necessary settings using your WordPress admin panel in "BWS Plugins" > "Error Log Viewer".
+3. You can adjust the necessary settings using your WordPress admin panel in "BWS Panel" > "Error Log Viewer".
 
 <a href="https://docs.google.com/document/d/1MSbArf3NiazpfFL-kbaSqTjJbVhlVYq_wtgbU1739A8/edit" target="_blank">View a Step-by-step Instruction on Error Log Viewer Installation</a>.
 
@@ -119,6 +119,10 @@ Please make sure that the problem hasn't been discussed on our forum yet (<a hre
 
 == Changelog ==
 
+= V1.0.4 - 11.07.2016 =
+* Update : We updated all functionality for wordpress 4.5.3.
+* Update : BWS panel section is updated.
+
 = V1.0.3 - 25.04.2016 =
 * Update : We updated all functionality for wordpress 4.5.
 
@@ -132,6 +136,9 @@ Please make sure that the problem hasn't been discussed on our forum yet (<a hre
 * Release date of Error Log Viewer
 
 == Upgrade Notice ==
+
+= V1.0.4 =
+We updated all functionality for wordpress 4.5.3. BWS panel section is updated.
 
 = V1.0.3 =
 We updated all functionality for wordpress 4.5.
