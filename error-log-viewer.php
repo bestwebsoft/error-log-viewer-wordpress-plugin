@@ -1,12 +1,12 @@
 <?php 
 /*
 Plugin Name: Error Log Viewer by BestWebSoft
-Plugin URI: http://bestwebsoft.com/products/error-log-viewer/
+Plugin URI: http://bestwebsoft.com/products/wordpress/plugins/error-log-viewer/
 Description: Get latest error log messages to diagnose website problems. Define and fix issues faster.
 Author: BestWebSoft
 Text Domain: error-log-viewer
 Domain Path: /languages
-Version: 1.0.4
+Version: 1.0.5
 Author URI: http://bestwebsoft.com/
 License: GNU General Public License V3
 */
