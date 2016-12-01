@@ -1,9 +1,7 @@
-<a href="http://bestwebsoft.com/products/error-log-viewer/" target=_blank>Error Log Viewer WordPress Plugin</a>
+<a href="http://bestwebsoft.com/products/wordpress/plugins/error-log-viewer/" target=_blank>Error Log Viewer WordPress Plugin</a>
 ========================
 
 Get latest error log messages to diagnose website problems. Define and fix issues faster.
-
-<img src="http://bestwebsoft.com/wp-content/uploads/2015/08/error-log-viewer-banner-website.jpg" />
 
 <p>This plugin finds and analyzes the log files on the WordPress folders and server, and allows you to work with them. You can select the files you want to work with. You can choose one of options for viewing the file: you can view only last lines, you can select logs by date, or you can view the full file. When there are changes in log files plugin can send notifications on your mail. Also there is a possibility to clear and store the log files.</p>
 
