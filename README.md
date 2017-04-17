@@ -1,39 +1,67 @@
-<a href="http://bestwebsoft.com/products/wordpress/plugins/error-log-viewer/" target=_blank>Error Log Viewer WordPress Plugin</a>
+<a href="https://bestwebsoft.com/products/wordpress/plugins/error-log-viewer/" target=_blank>Error Log Viewer WordPress Plugin</a>
 ========================
 
 Get latest error log messages to diagnose website problems. Define and fix issues faster.
 
-<p>This plugin finds and analyzes the log files on the WordPress folders and server, and allows you to work with them. You can select the files you want to work with. You can choose one of options for viewing the file: you can view only last lines, you can select logs by date, or you can view the full file. When there are changes in log files plugin can send notifications on your mail. Also there is a possibility to clear and store the log files.</p>
+<p>Simple utility plugin that helps to find and view log files with errors right from your WordPress admin dashboard. Get access to all your log files from one place. View the latest activity, select logs by date, or view a full log file. Get email notifications about log changes.</p>
+
+<p>Get access to your website logs and troubleshoot issues faster!</p>
 
 
 <div class='video'></div>
 
 
-<p><a href="http://wordpress.org/plugins/error-log-viewer/faq/">Error Log Viewer by BestWebSoft FAQ</a></p>
-
-<p><a href="http://support.bestwebsoft.com">Error Log Viewer by BestWebSoft Support</a></p>
-
 <h4>Features</h4>
 
 <ul>
-<li>Search logs on the Wordpress server and in WordPress folders </li>
-<li>Saving and clearing log files.</li>
-<li>Sending notifications on mail after log files are changed </li>
-<li>Viewing the last lines in the log files.</li>
-<li>Viewing the log files by date</li>
-<li>Viewing the log files fully</li>
-</ul>
-
-<p>If you have a feature, suggestion or idea you'd like to see in the plugin, we'd love to hear about it! <a href="http://support.bestwebsoft.com/hc/en-us/requests/new">Suggest a Feature</a></p>
-
-<h4>Recommended Plugins</h4>
-
-<p>The author of the Error Log Viewer also recommends the following plugins:</p>
+<li>Enable WordPress error logging with:
 
 <ul>
-<li><a href="http://wordpress.org/plugins/updater/">Updater</a> - This plugin updates WordPress core and the plugins to the recent versions. You can also use the auto mode or manual mode for updating and set email notifications.
-There is also a premium version of the plugin <a href="http://bestwebsoft.com/products/wordpress/plugins/updater/">Updater Pro</a> with more useful features available. It can make backup of all your files and database before updating. Also it can forbid some plugins or WordPress Core update.</li>
+<li>.htaccess </li>
+<li>wp-config.php using <code>inl_set</code></li>
+<li>wp-config.php using <code>WP_DEBUG</code></li>
+</ul></li>
+<li>Search and view error logs: 
+
+<ul>
+<li>PHP </li>
+<li>WordPress</li>
+</ul></li>
+<li>Configure email notifications about log changes:
+
+<ul>
+<li>Set the email</li>
+<li>Change frequency</li>
+</ul></li>
+<li>Configure log monitor settings:
+
+<ul>
+<li>Choose the log to be displayed </li>
+<li>Choose what to show in the log:
+
+<ul>
+<li>Certain last lines in the file</li>
+<li>Log for a certain period of time</li>
+<li>Full file</li>
+</ul></li>
+</ul></li>
+<li>View or save the part of PHP error logs as TXT file </li>
+<li>Compatible with latest WordPress version</li>
+<li>Incredibly simple settings for fast setup without modifying code</li>
+<li>Detailed step-by-step documentation and videos</li>
 </ul>
+
+<p>If you have a feature suggestion or idea you'd like to see in the plugin, we'd love to hear about it! <a href="https://support.bestwebsoft.com/hc/en-us/requests/new">Suggest a Feature</a></p>
+
+<h4>Documentation &#38; Videos</h4>
+
+<ul>
+<li><a href="https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/">[Doc] Installation</a></li>
+</ul>
+
+<h4>Help &#38; Support</h4>
+
+<p>Visit our Help Center if you have any questions, our friendly Support Team is happy to help - <a href="https://support.bestwebsoft.com/">https://support.bestwebsoft.com/</a></p>
 
 <h4>Translation</h4>
 
@@ -42,12 +70,10 @@ There is also a premium version of the plugin <a href="http://bestwebsoft.com/pr
 <li>Ukrainian (uk)</li>
 </ul>
 
-<p>If you would like to create your own language pack or update the existing one, you can send <a href="http://codex.wordpress.org/Translating_WordPress">the text of PO and MO files</a> to <a href="http://support.bestwebsoft.com/hc/en-us/requests/new">BestWebSoft</a>, and we'll add it to the plugin. You can download the latest version of the program for working with PO and MO files  <a href="http://www.poedit.net/download.php">Poedit</a>.</p>
+<p>Some of these translations are not complete. We are constantly adding new features which should be translated. If you would like to create your own language pack or update the existing one, you can send <a href="https://codex.wordpress.org/Translating_WordPress">the text of PO and MO files</a> to <a href="https://support.bestwebsoft.com/hc/en-us/requests/new">BestWebSoft</a> and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO <a href="https://www.poedit.net/download.php">files Poedit</a>.</p>
 
-<h4>Technical support</h4>
+<h4>Recommended Plugins</h4>
 
-<p>Dear users, our plugins are available for free download. If you have any questions or recommendations regarding the functionality of our plugins (existing options, new options, current issues), please feel free to contact us. Please note that we accept requests in English only. All messages in other languages won't be accepted.</p>
-
-<p>If you notice any bugs in the plugin's work, you can notify us about them and we'll investigate and fix the issue then. Your request should contain website URL, issues description and WordPress admin panel credentials.
-Moreover, we can customize the plugin according to your requirements. It's a paid service (as a rule it costs $40, but the price can vary depending on the amount of the necessary changes and their complexity). Please note that we could also include this or that feature (developed for you) in the next release and share with the other users then.
-We can fix some things for free for the users who provide a translation of our plugin into their native language (this should be a new translation of a certain plugin, you can check available translations on the official plugin page).</p>
+<ul>
+<li><a href="https://bestwebsoft.com/products/wordpress/plugins/updater/?k=e2d89a7eca0a903ab58d99e7ffa3b510">Updater</a> - Automatically check and update WordPress core with all installed plugins to the latest versions. Manual mode, email notifications and backups of all your files and database before updating.</li>
+</ul>

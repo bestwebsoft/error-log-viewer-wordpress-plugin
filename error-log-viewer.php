@@ -1,17 +1,17 @@
 <?php 
 /*
 Plugin Name: Error Log Viewer by BestWebSoft
-Plugin URI: http://bestwebsoft.com/products/wordpress/plugins/error-log-viewer/
+Plugin URI: https://bestwebsoft.com/products/wordpress/plugins/error-log-viewer/
 Description: Get latest error log messages to diagnose website problems. Define and fix issues faster.
 Author: BestWebSoft
 Text Domain: error-log-viewer
 Domain Path: /languages
-Version: 1.0.5
-Author URI: http://bestwebsoft.com/
+Version: 1.0.6
+Author URI: https://bestwebsoft.com/
 License: GNU General Public License V3
 */
 
-/*  @ Copyright 2016  BestWebSoft  ( http://support.bestwebsoft.com )
+/*  @ Copyright 2017  BestWebSoft  ( https://support.bestwebsoft.com )
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License, version 2, as
@@ -1162,8 +1162,8 @@ if ( ! function_exists( 'rrrlgvwr_register_plugin_links' ) ) {
 		if ( $file == $base ) { 
 			if ( ! is_network_admin() )
 				$links[]	=	'<a href="admin.php?page=rrrlgvwr.php&amp;tab=settings">' . __( 'Settings', 'error-log-viewer' ) . '</a>';
-			$links[]	=	'<a href="http://wordpress.org/plugins/error-log-viewer" target="_blank">' . __( 'FAQ', 'error-log-viewer' ) . '</a>';
-			$links[]	=	'<a href="http://support.bestwebsoft.com">' . __( 'Support', 'error-log-viewer' ) . '</a>';
+			$links[]	=	'<a href="https://support.bestwebsoft.com/hc/en-us/sections/201247209" target="_blank">' . __( 'FAQ', 'error-log-viewer' ) . '</a>';
+			$links[]	=	'<a href="https://support.bestwebsoft.com">' . __( 'Support', 'error-log-viewer' ) . '</a>';
 		}
 		return $links;
 	}
