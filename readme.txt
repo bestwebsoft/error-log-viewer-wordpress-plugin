@@ -2,9 +2,9 @@
 Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: add debug tool, error log, error log viewer, php error log, debug tool, clear log, display errors, error, eror, error reporting, save log, find log
-Requires at least: 3.8
-Tested up to: 4.7.3
-Stable tag: 1.0.6
+Requires at least: 3.9
+Tested up to: 4.9.7
+Stable tag: 1.0.7
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -21,22 +21,22 @@ https://www.youtube.com/watch?v=8LR0F4GgXhM
 = Features =
 
 * Enable WordPress error logging with:
-	* .htaccess 
+	* .htaccess
 	* wp-config.php using `inl_set`
 	* wp-config.php using `WP_DEBUG`
-* Search and view error logs: 
-	* PHP 
+* Search and view error logs:
+	* PHP
 	* WordPress
 * Configure email notifications about log changes:
 	* Set the email
 	* Change frequency
 * Configure log monitor settings:
-	* Choose the log to be displayed 
+	* Choose the log to be displayed
 	* Choose what to show in the log:
 		* Certain last lines in the file
 		* Log for a certain period of time
 		* Full file
-* View or save the part of PHP error logs as TXT file 
+* View or save the part of PHP error logs as TXT file
 * Compatible with latest WordPress version
 * Incredibly simple settings for fast setup without modifying code
 * Detailed step-by-step documentation and videos
@@ -60,9 +60,9 @@ Some of these translations are not complete. We are constantly adding new featur
 
 = Recommended Plugins =
 
-* [Updater](https://bestwebsoft.com/products/wordpress/plugins/updater/?k=e2d89a7eca0a903ab58d99e7ffa3b510) - Automatically check and update WordPress core with all installed plugins to the latest versions. Manual mode, email notifications and backups of all your files and database before updating.
+* [Updater](https://bestwebsoft.com/products/wordpress/plugins/updater/?k=e2d89a7eca0a903ab58d99e7ffa3b510) - Automatically check and update WordPress website core with all installed plugins and themes to the latest versions.
 
-== Installation == 
+== Installation ==
 
 1. Upload the `error-log-viewer` folder to `/wp-content/plugins/` directory.
 2. Activate the plugin using the 'Plugins' menu in your WordPress admin panel.
@@ -118,7 +118,7 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 - The link to the page where the problem occurs
 - The name of the plugin and its version. If you are using a pro version - your order number.
 - The version of your WordPress installation
-- Copy and paste into the message your system status report. Please read more her: [Instruction on System Status](https://docs.google.com/document/d/1Wi2X8RdRGXk9kMszQy1xItJrpN0ncXgioH935MaBKtc/)
+- Copy and paste into the message your system status report. Please read more here: [Instruction on System Status](https://docs.google.com/document/d/1Wi2X8RdRGXk9kMszQy1xItJrpN0ncXgioH935MaBKtc/)
 
 == Screenshots ==
 
@@ -129,6 +129,10 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 5. WP error log monitor.
 
 == Changelog ==
+
+= V1.0.7 - 19.07.2018 =
+* NEW : Ability to clear log file has been added.
+* Bugfix : Error log display area was fixed.
 
 = V1.0.6 - 17.04.2017 =
 * Bugfix : Multiple Cross-Site Scripting (XSS) vulnerability was fixed.
@@ -154,6 +158,10 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 
 == Upgrade Notice ==
 
+= V1.0.7 =
+* New features added
+* Bugs fixed
+
 = V1.0.6 =
 * Bugs fixed.
 
@@ -161,16 +169,16 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * Plugin optimization completed.
 
 = V1.0.4 =
-We updated all functionality for wordpress 4.5.3. BWS panel section is updated.
+* We updated all functionality for wordpress 4.5.3. BWS panel section is updated.
 
 = V1.0.3 =
-We updated all functionality for wordpress 4.5.
+* We updated all functionality for wordpress 4.5.
 
 = V1.0.2 =
-The bug with plugin menu duplicating was fixed.
+* The bug with plugin menu duplicating was fixed.
 
 = V1.0.1 =
-We added ability to restore settings to defaults.
+* We added ability to restore settings to defaults.
 
 = V1.0.0 =
 * Release date of Error Log Viewer

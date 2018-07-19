@@ -1,24 +1,19 @@
 ( function( $ ) {
 	$( document ).ready( function() {
 		$( function() {
-			$( "#rrrlgvwr-from" ).datepicker( {
-				minDate: new Date( 2015, 0, 1 ), 
-				onClose: function( selectedDate ) {
-					$( "#rrrlgvwr-to" ).datepicker( "option", "minDate", selectedDate );
-				}
-			});
-			$( "#rrrlgvwr-to" ).datepicker( {
-				maxDate: new Date( 2016, 0, 1 ),
-				onClose: function( selectedDate ) {
-					$( "#rrrlgvwr-from" ).datepicker( "option", "maxDate", selectedDate );
-				}
-			});
+			var from = $( "#rrrlgvwr-from" ).datepicker({});
+			var	to = $( "#rrrlgvwr-to" ).datepicker({});
+				
+				from.on( "change", function(){
+					var minDate = from.val();
+					to.datepicker( "option", "minDate", minDate );
+				});
 		});
 
 		$( ".rrrlgvwr-email-field" ).css( "display", "none" );
 		$( ".rrrlgvwr-interval-field" ).css( "display", "none" );
 		
-		$( "#rrrlgvwr-send-email" ).change( function() {
+		$( "#rrrlgvwr-send-email" ).on( "change", function() {
 			if ( $( this ).prop( "checked" ) == true ) {
 				$( ".rrrlgvwr-email-field" ).css( "display", "table-row" );
 				$( ".rrrlgvwr-interval-field" ).css( "display", "table-row" );
@@ -26,17 +21,18 @@
 				$( ".rrrlgvwr-email-field" ).css( "display", "none" );
 				$( ".rrrlgvwr-interval-field" ).css( "display", "none" );
 			}
-		}).change();
+		}).trigger( "change" );
 
 		var confirmFilesize = rrrlgvwr_confirm.confirm_filesize;
 		var confirmMes		= rrrlgvwr_confirm.confirm_mes;
 		var clearmMes		= rrrlgvwr_confirm.clear_mes;
-		$( "#rrrlgvwr-show-all" ).click( function() {
-			if ( confirmFilesize > 10485760 )
+		$( "#rrrlgvwr-show-all" ).on( "click", function() {
+			var tenMb = 10485760;
+			if ( confirmFilesize > tenMb )
 				return confirm( confirmMes );
 		});
 
-		$( "#rrrlgvwr-clear-file" ).click( function() {
+		$( "#rrrlgvwr-clear-file" ).on( "click", function() {
 			return confirm( clearmMes );
 		});
 	});
