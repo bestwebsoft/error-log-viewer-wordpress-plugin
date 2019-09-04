@@ -6,12 +6,12 @@ Description: Get latest error log messages to diagnose website problems. Define 
 Author: BestWebSoft
 Text Domain: error-log-viewer
 Domain Path: /languages
-Version: 1.0.8
+Version: 1.0.9
 Author URI: https://bestwebsoft.com/
 License: GNU General Public License V3
 */
 
-/*  @ Copyright 2018  BestWebSoft  ( https://support.bestwebsoft.com )
+/*  @ Copyright 2019  BestWebSoft  ( https://support.bestwebsoft.com )
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License, version 2, as
