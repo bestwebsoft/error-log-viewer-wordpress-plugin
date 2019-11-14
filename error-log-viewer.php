@@ -6,7 +6,7 @@ Description: Get latest error log messages to diagnose website problems. Define 
 Author: BestWebSoft
 Text Domain: error-log-viewer
 Domain Path: /languages
-Version: 1.0.9
+Version: 1.1.0
 Author URI: https://bestwebsoft.com/
 License: GNU General Public License V3
 */
@@ -64,7 +64,7 @@ if ( ! function_exists( 'rrrlgvwr_plugins_loaded' ) ) {
 */
 if ( ! function_exists ( 'rrrlgvwr_init' ) ) {
 	function rrrlgvwr_init() {
-		global $rrrlgvwr_options, $rrrlgvwr_plugin_info;
+		global $rrrlgvwr_plugin_info;
 
 		require_once( dirname( __FILE__ ) . '/bws_menu/bws_include.php' );
 		bws_include_init( plugin_basename( __FILE__ ) );
@@ -1068,7 +1068,7 @@ if ( ! function_exists( 'rrrlgvwr_interval_schedule' ) ) {
 			rrrlgvwr_settings();
 		}
 
-		$interval = $rrrlgvwr_options['frequency_send']*$rrrlgvwr_options['hour_day'];
+		$interval = $rrrlgvwr_options['frequency_send'] * $rrrlgvwr_options['hour_day'];
 		$schedules['rrrlgvwr_interval'] = array(
 			'interval'	=> $interval,
 			'display'	=> __( 'Send Email Interval', 'error-log-viewer' ),
@@ -1167,6 +1167,36 @@ if ( file_exists( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' ) ) {
 					'total_items'		=> $total_items,
 					'per_page'			=> $per_page
 				) );
+			}
+		}
+	}
+}
+
+/**
+ * Sending mail about fatal error
+ */
+if ( ! function_exists( 'rrrlgvwr_handle_fatal_error' ) ) {
+	function rrrlgvwr_handle_fatal_error() {
+		$error = error_get_last();
+		if ( null != $error ) {
+			$rrrlgvwr_options  = get_option( 'rrrlgvwr_options' );
+			$fatal_error_types = array(
+				E_ERROR,
+				E_PARSE,
+				E_CORE_ERROR,
+				E_USER_ERROR,
+				E_COMPILE_ERROR,
+				E_RECOVERABLE_ERROR,
+			);
+			if ( isset( $rrrlgvwr_options['send_email'] ) && 1 == $rrrlgvwr_options['send_email'] &&  isset( $error['type'] ) && in_array( $error['type'], $fatal_error_types, true ) ) {
+				$subject = __( 'Fatal error on ', 'error-log-viewer' ) . site_url();
+				$message = __( 'An unexpected fatal error occurred on the site.', 'error-log-viewer' ) . "\n" .
+                           sprintf( __( 'Fatal error: %s in %s on line %d', 'error-log-viewer' ), $error['message'], $error['file'], $error['line'] );
+
+				if ( ! function_exists('wp_mail') ){
+					require_once( ABSPATH . 'wp-includes/pluggable.php' );
+                }
+				wp_mail( $rrrlgvwr_options['email'], $subject, $message );
 			}
 		}
 	}
@@ -1308,5 +1338,6 @@ add_action( 'rrrlgvwr_shedule_event', 'rrrlgvwr_send_log' );
 /* Cron shedules */
 add_filter( 'cron_schedules', 'rrrlgvwr_interval_schedule' );
 
+register_shutdown_function( 'rrrlgvwr_handle_fatal_error' );
 register_deactivation_hook( __FILE__, 'rrrlgvwr_shedule_deactivation' );
 register_uninstall_hook( __FILE__, 'rrrlgvwr_uninstall' );

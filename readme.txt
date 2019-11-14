@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: add debug tool, error log, error log viewer, php error log, debug tool, clear log, display errors, error, eror, error reporting, save log, find log
 Requires at least: 3.9
-Tested up to: 5.2.2
-Stable tag: 1.0.9
+Tested up to: 5.3
+Stable tag: 1.1.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -130,6 +130,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 
 == Changelog ==
 
+= V1.1.0 - 14.11.2019 =
+* NEW : Ability to send an email notification when a fatal error occurs.
+
 = V1.0.9 - 04.09.2019 =
 * Update: The deactivation feedback has been changed. Misleading buttons have been removed.
 
@@ -163,6 +166,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * Release date of Error Log Viewer
 
 == Upgrade Notice ==
+
+= V1.1.0 =
+* New features added.
 
 = V1.0.9 =
 * Usability improved.

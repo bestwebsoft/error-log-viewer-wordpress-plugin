@@ -83,17 +83,10 @@ $bws_plugins = array(
 		'name'			=> 'Custom Admin Page',
 		'description'	=> __( 'Add unlimited custom pages to WordPress admin dashboard.', 'bestwebsoft' ),
 		'link'			=> 'https://bestwebsoft.com/products/wordpress/plugins/custom-admin-page/?k=9ac03f16c25e845e8e055a221c3e1467&pn=' . $bws_plugin_info["id"] . '&v=' . $bws_plugin_info["version"] . '&wp_v=' . $wp_version,
-		'settings'		=> 'admin.php?page=custom-admin-page.php',
+		'settings'		=> 'edit.php?post_type=bws-admin_page&page=custom-admin-page.php',
 		'pro_version'	=> 'custom-admin-page-pro/custom-admin-page-pro.php',
 		'purchase' 		=> 'https://bestwebsoft.com/products/wordpress/plugins/custom-admin-page/buy/?k=b986f456dba092b537f1a7755a363be9&pn=' . $bws_plugin_info["id"] . '&v=' . $bws_plugin_info["version"] . '&wp_v=' . $wp_version,
-		'pro_settings' 	=> 'admin.php?page=custom-admin-page.php'
-	),
-	'custom-fields-search/custom-fields-search.php' => array(
-		'category'		=> array( 'navigation' ),
-		'name'			=> 'Custom Fields Search',
-		'description'	=> __( 'Add custom fields to WordPress website search results.', 'bestwebsoft' ),
-		'link'			=> 'https://bestwebsoft.com/products/wordpress/plugins/custom-fields-search/?k=f3f8285bb069250c42c6ffac95ed3284&pn=' . $bws_plugin_info["id"] . '&v=' . $bws_plugin_info["version"] . '&wp_v=' . $wp_version,
-		'settings'		=> 'admin.php?page=custom_fields_search.php'
+		'pro_settings' 	=> 'edit.php?post_type=bws-admin_page&page=custom-admin-page.php'
 	),
 	'custom-search-plugin/custom-search-plugin.php' => array(
 		'category'		=> array( 'navigation' ),
@@ -121,7 +114,7 @@ $bws_plugins = array(
 	),
 	'facebook-button-plugin/facebook-button-plugin.php' => array(
 		'category'		=> array( 'smm' ),
-		'name'			=> 'Bestwebsoft Buttons for Facebook',
+		'name'			=> 'BestWebSoft Like & Share',
 		'description'	=> __( 'Add Facebook Follow, Like, and Share buttons to WordPress posts, pages, and widgets.', 'bestwebsoft' ),
 		'link'			=> 'https://bestwebsoft.com/products/wordpress/plugins/facebook-like-button/?k=05ec4f12327f55848335802581467d55&pn=' . $bws_plugin_info["id"] . '&v=' . $bws_plugin_info["version"] . '&wp_v=' . $wp_version,
 		'settings'		=> 'admin.php?page=facebook-button-plugin.php',
