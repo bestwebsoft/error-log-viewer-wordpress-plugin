@@ -10,19 +10,6 @@
 				});
 		});
 
-		$( ".rrrlgvwr-email-field" ).css( "display", "none" );
-		$( ".rrrlgvwr-interval-field" ).css( "display", "none" );
-		
-		$( "#rrrlgvwr-send-email" ).on( "change", function() {
-			if ( $( this ).prop( "checked" ) == true ) {
-				$( ".rrrlgvwr-email-field" ).css( "display", "table-row" );
-				$( ".rrrlgvwr-interval-field" ).css( "display", "table-row" );
-			} else {
-				$( ".rrrlgvwr-email-field" ).css( "display", "none" );
-				$( ".rrrlgvwr-interval-field" ).css( "display", "none" );
-			}
-		}).trigger( "change" );
-
 		var confirmFilesize = rrrlgvwr_confirm.confirm_filesize;
 		var confirmMes		= rrrlgvwr_confirm.confirm_mes;
 		var clearmMes		= rrrlgvwr_confirm.clear_mes;

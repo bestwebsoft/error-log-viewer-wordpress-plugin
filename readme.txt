@@ -2,9 +2,9 @@
 Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: add debug tool, error log, error log viewer, php error log, debug tool, clear log, display errors, error, eror, error reporting, save log, find log
-Requires at least: 3.9
-Tested up to: 5.3
-Stable tag: 1.1.0
+Requires at least: 4.5
+Tested up to: 5.4
+Stable tag: 1.1.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -65,10 +65,10 @@ Some of these translations are not complete. We are constantly adding new featur
 == Installation ==
 
 1. Upload the `error-log-viewer` folder to `/wp-content/plugins/` directory.
-2. Activate the plugin using the 'Plugins' menu in your WordPress admin panel.
-3. You can adjust the necessary settings using your WordPress admin panel in "BWS Panel" > "Error Log Viewer".
+2. Activate the plugin via the 'Plugins' menu in WordPress.
+3. Plugin settings are located in "Error Log Viewer".
 
-[View a Step-by-step Instruction on Error Log Viewer Installation](https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/)
+[View a Step-by-step Instruction on Error Log Viewer Installation](https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/).
 
 == Frequently Asked Questions ==
 
@@ -130,6 +130,12 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 
 == Changelog ==
 
+= V1.1.1 - 02.04.2020 =
+* Update : The plugin settings page was changed.
+* Update : All functionality was updated for PHP 7.4.
+* Update : BWS menu has been updated.
+* Update : All functionality has been updated for WordPress 5.4.
+
 = V1.1.0 - 14.11.2019 =
 * NEW : Ability to send an email notification when a fatal error occurs.
 
@@ -166,6 +172,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * Release date of Error Log Viewer
 
 == Upgrade Notice ==
+
+= V1.1.1 =
+* Usability improved.
 
 = V1.1.0 =
 * New features added.
