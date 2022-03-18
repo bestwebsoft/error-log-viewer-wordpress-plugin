@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: add debug tool, error log, error log viewer, php error log, debug tool, clear log, display errors, error, eror, error reporting, save log, find log
 Requires at least: 4.5
-Tested up to: 5.4
-Stable tag: 1.1.1
+Tested up to: 5.9
+Stable tag: 1.1.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -15,6 +15,8 @@ Get latest error log messages to diagnose website problems. Define and fix issue
 Simple utility plugin that helps to find and view log files with errors right from your WordPress admin dashboard. Get access to all your log files from one place. View the latest activity, select logs by date, or view a full log file. Get email notifications about log changes.
 
 Get access to your website logs and troubleshoot issues faster!
+
+[View Demo](https://bestwebsoft.com/demo-error-log-viewer/?ref=readme)
 
 https://www.youtube.com/watch?v=8LR0F4GgXhM
 
@@ -45,11 +47,16 @@ If you have a feature suggestion or idea you'd like to see in the plugin, we'd l
 
 = Documentation & Videos =
 
-* [[Doc] Installation](https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/)
+* [[Doc] User Guide](https://bestwebsoft.com/documentation/error-log-viewer/error-log-viewer-user-guide/)
+* [[Doc] Installation](https://bestwebsoft.com/documentation/how-to-install-a-wordpress-product/how-to-install-a-wordpress-plugin/)
 
 = Help & Support =
 
 Visit our Help Center if you have any questions, our friendly Support Team is happy to help - <https://support.bestwebsoft.com/>
+
+= Affiliate Program =
+
+Earn 20% commission by selling the premium WordPress plugins and themes by BestWebSoft — https://bestwebsoft.com/affiliate/
 
 = Translation =
 
@@ -68,7 +75,7 @@ Some of these translations are not complete. We are constantly adding new featur
 2. Activate the plugin via the 'Plugins' menu in WordPress.
 3. Plugin settings are located in "Error Log Viewer".
 
-[View a Step-by-step Instruction on Error Log Viewer Installation](https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/).
+[View a Step-by-step Instruction on Error Log Viewer Installation](https://bestwebsoft.com/documentation/how-to-install-a-wordpress-product/how-to-install-a-wordpress-plugin/).
 
 == Frequently Asked Questions ==
 
@@ -118,7 +125,7 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 - The link to the page where the problem occurs
 - The name of the plugin and its version. If you are using a pro version - your order number.
 - The version of your WordPress installation
-- Copy and paste into the message your system status report. Please read more here: [Instruction on System Status](https://docs.google.com/document/d/1Wi2X8RdRGXk9kMszQy1xItJrpN0ncXgioH935MaBKtc/)
+- Copy and paste into the message your system status report. Please read more here: [Instruction on System Status](https://bestwebsoft.com/documentation/admin-panel-issues/system-status/)
 
 == Screenshots ==
 
@@ -129,6 +136,11 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 5. WP error log monitor.
 
 == Changelog ==
+
+= V1.1.2 - 11.01.2022 =
+* Update : BWS panel section is updated.
+* Update : All functionality has been updated for WordPress 5.8.1.
+* Bugfix : Bugs with adding data to wp-config were fixed.
 
 = V1.1.1 - 02.04.2020 =
 * Update : The plugin settings page was changed.
@@ -172,6 +184,11 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * Release date of Error Log Viewer
 
 == Upgrade Notice ==
+
+= V1.1.2 =
+* The compatibility with new WordPress version updated.
+* Plugin optimization completed.
+* Bugs fixed
 
 = V1.1.1 =
 * Usability improved.
