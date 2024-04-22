@@ -63,3 +63,7 @@
 <ul>
 <li><a href="https://bestwebsoft.com/products/wordpress/plugins/updater/?k=e2d89a7eca0a903ab58d99e7ffa3b510" rel="nofollow ugc">Updater</a> &#8211; Automatically check and update WordPress website core with all installed plugins and themes to the latest versions.</li>
 </ul>
+<h4>Credits</h4>
+<ul>
+<li>This plugin incorporates a license verification mechanism to ensure the authenticity of your license key and provide access to premium features and updates. The verification process involves connecting securely to our external service hosted at BestWebSoft website <a href="https://bestwebsoft.com" rel="nofollow ugc">https://bestwebsoft.com</a>. Privacy Policy <a href="https://bestwebsoft.com/privacy-policy/" rel="nofollow ugc">https://bestwebsoft.com/privacy-policy/</a>. End user license agreement <a href="https://bestwebsoft.com/end-user-license-agreement/" rel="nofollow ugc">https://bestwebsoft.com/end-user-license-agreement/</a>.</li>
+</ul>
