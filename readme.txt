@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: add debug tool, error log, error log viewer, php error log, debug tool, clear log, display errors, error, eror, error reporting, save log, find log
 Requires at least: 5.6
-Tested up to: 6.5
-Stable tag: 1.1.5
+Tested up to: 6.7
+Stable tag: 1.1.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -141,6 +141,11 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 
 == Changelog ==
 
+= V1.1.6 - 26.03.2025 =
+* Bugfix : Small bugs fixed.
+* Update : Plugin optimization compleated.
+* Update : All functionality has been updated for WordPress 6.7.
+
 = V1.1.5 - 22.04.2024 =
 * Bugfix : Small bugs fixed.
 * Update : Plugin optimization compleated.
@@ -203,6 +208,11 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * Release date of Error Log Viewer
 
 == Upgrade Notice ==
+
+= V1.1.6 =
+* The compatibility with new WordPress version updated.
+* Plugin optimization completed.
+* Bugs fixed
 
 = V1.1.5 =
 * The compatibility with new WordPress version updated.

@@ -72,10 +72,27 @@ if ( ! class_exists( 'Rrrlgvwr_Settings_Tabs' ) ) {
 					$this->options['file_path'][0]       = $rrrlgvwr_php_error_path;
 					$this->options['count_visible_log'] += $this->options['php_error_log_visible'];
 				}
+				$subname_array = array();
 				foreach ( $this->wp_error_files as $key => $file ) {
-					$name    = str_replace( substr( $file, 0, strripos( $file, '/' ) + 1 ), '', $file );
+					/*$name    = str_replace( substr( $file, 0, strripos( $file, '/' ) + 1 ), '', $file );
 					$subname = substr( $name, 0, strpos( $name, '.' ) );
-					$subname = $key . '_' . $subname . '_visible';
+					$subname = $key . '_' . $subname . '_visible';*/
+
+					$name        = basename( $file );
+					$path_info   = pathinfo( $file );
+					$parent_dir  = basename( $path_info['dirname'] );
+					$subname     = $parent_dir . '_' . $path_info['filename'] . '_visible';
+					$old_subname = $key . '_' . $path_info['filename'] . '_visible';
+					if ( in_array( $subname, $subname_array ) ) {
+						$parent_parent_dir = basename( $path_info['dirname'] );
+
+						$subname = $parent_parent_dir . '_' . $parent_dir . '_' . $path_info['filename'] . '_visible';
+					}
+					$subname_array[] = $subname;
+					if ( isset( $this->options[ $old_subname ] ) ) {
+					 unset( $this->options[ $old_subname ] );
+					}
+
 					if ( is_readable( $file ) ) {
 						$this->options[ $subname ] = ( isset( $_POST[ $subname ] ) ) ? 1 : 0;
 						if ( $file === $rrrlgvwr_php_error_path && intval( $this->options['php_error_log_visible'] ) === 1 ) {
@@ -173,130 +190,152 @@ if ( ! class_exists( 'Rrrlgvwr_Settings_Tabs' ) ) {
 			<h3 class="bws_tab_label"><?php esc_html_e( 'Error Log Viewer Settings', 'error-log-viewer' ); ?></h3>
 			<?php $this->help_phrase(); ?>
 			<hr>
-			<div class="bws_tab_sub_label"><?php esc_html_e( 'PHP Error Log', 'error-log-viewer' ); ?></div>
+			<table class="form-table">
+				<tr>
+					<td colspan="4" class="bws_tab_wrap">
+						<div class="bws_tab_sub_label"><?php esc_html_e( 'PHP Error Log', 'error-log-viewer' ); ?></div>
+					</td>
+				</tr>
 			<?php if ( $error_logging_enabled && ( ! empty( $rrrlgvwr_php_error_path ) ) && ( is_readable( $rrrlgvwr_php_error_path ) ) ) { ?>
-				<table class="form-table">
-					<tr>
-						<th scope="row" class="th-full">
-							<label>
-								<input type="checkbox" name="rrrlgvwr_php_visible" <?php checked( $this->options['php_error_log_visible'] ); ?> />
-								<?php echo esc_attr( $name ); ?>
-							</label>
-						</th>
-						<td><?php echo esc_html( $php_error_mes ); ?></td>
-						<?php if ( file_exists( $rrrlgvwr_php_error_path ) ) { ?>
-							<td>
-								<?php
-								if ( 0 === filesize( $rrrlgvwr_php_error_path ) ) {
-									esc_html_e( 'The file is empty', 'error-log-viewer' );
-								} else {
-									echo esc_attr( rrrlgvwr_file_size( $rrrlgvwr_php_error_path ) );
-								}
-								?>
-							</td>
-							<td>
-								<?php
-								esc_html_e( 'Last update', 'error-log-viewer' );
-								echo esc_html( ': ' . gmdate( 'Y-m-d H:i:s', filemtime( $rrrlgvwr_php_error_path ) ) );
-								?>
-							</td>
-						<?php } ?>
-					</tr>
-				</table>
+				<tr>
+					<th scope="row" class="th-full">
+						<label>
+							<input type="checkbox" name="rrrlgvwr_php_visible" <?php checked( $this->options['php_error_log_visible'] ); ?> />
+							<?php echo esc_attr( $name ); ?>
+						</label>
+					</th>
+					<td><?php echo esc_html( $php_error_mes ); ?></td>
+					<?php if ( file_exists( $rrrlgvwr_php_error_path ) ) { ?>
+						<td>
+							<?php
+							if ( 0 === filesize( $rrrlgvwr_php_error_path ) ) {
+								esc_html_e( 'The file is empty', 'error-log-viewer' );
+							} else {
+								echo esc_attr( rrrlgvwr_file_size( $rrrlgvwr_php_error_path ) );
+							}
+							?>
+						</td>
+						<td>
+							<?php
+							esc_html_e( 'Last update', 'error-log-viewer' );
+							echo esc_html( ': ' . gmdate( 'Y-m-d H:i:s', filemtime( $rrrlgvwr_php_error_path ) ) );
+							?>
+						</td>
+					<?php } ?>
+				</tr>
 			<?php } else { ?>
-				<p><?php echo esc_html( $php_error_mes ); ?></p>
+				<tr>
+					<td colspan="4" class="bws_tab_wrap">
+						<p><?php echo esc_html( $php_error_mes ); ?></p>
+					</td>
+				<tr>
 			<?php } ?>
-			<div class="bws_tab_sub_label"><?php esc_html_e( 'WordPress Error Log', 'error-log-viewer' ); ?></div>
+			<tr>
+				<td colspan="4" class="bws_tab_wrap">
+					<div class="bws_tab_sub_label"><?php esc_html_e( 'WordPress Error Log', 'error-log-viewer' ); ?></div>
+				</td>
+			</tr>
 			<?php if ( 0 === count( $this->wp_error_files ) ) { ?>
-				<p><?php esc_html_e( "Plugin didn't find log files in your WordPress directory. You can create log file by yourself or using the plugin.", 'error-log-viewer' ); ?></p>
+				<tr>
+					<td colspan="4" class="bws_tab_wrap">
+						<p><?php esc_html_e( "Plugin didn't find log files in your WordPress directory. You can create log file by yourself or using the plugin.", 'error-log-viewer' ); ?></p>
+					</td>
+				</tr>
 				<?php
 			}
 			if ( 0 === count( $this->wp_error_files ) ) {
 				?>
-				<table class="form-table">
+				<tr>
+					<th scope="row" class="th-full">
+						<span><?php esc_html_e( "Error logging via '.htaccess' using 'php_flag' and 'php_value'", 'error-log-viewer' ); ?></span>
+					</th>
+					<td>
+						<fieldset>
+							<label>
+								<input type="radio" name="rrrlgvwr_create_log" value="htaccess" />
+								<?php esc_html_e( "Add the following code in your '.htaccess' file and create 'php-errors.log' file in 'log' directory in the plugin folder", 'error-log-viewer' ); ?>
+							</label>
+						</fieldset>
+						<p class="rrrlgvwr-pre"># log php errors<br>php_flag log_errors on<br>php_flag display_errors off<br>php_value error_log <?php echo esc_url( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'log' . DIRECTORY_SEPARATOR . 'php-errors.log' ); ?></p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row" class="th-full">
+						<span>
+							<?php esc_html_e( "Error logging via 'wp-config.php' using 'ini_set'", 'error-log-viewer' ); ?>
+						</span>
+					</th>
+					<td>
+						<fieldset>
+							<label>
+								<input type="radio" name="rrrlgvwr_create_log" value="config_ini_set" />
+								<?php esc_html_e( "Add the following code in the 'wp-config.php' file and create 'php-errors.log' file in 'log' directory in the plugin folder", 'error-log-viewer' ); ?>
+							</label>
+						</fieldset>
+						<p class="rrrlgvwr-pre">@ini_set( 'log_errors','On' );<br>@ini_set( 'display_errors','Off' );<br>@ini_set( 'error-log-viewer', '<?php echo esc_url( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'log' . DIRECTORY_SEPARATOR . 'php-errors.log' ); ?>' );</p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row" class="th-full">
+						<span>
+							<?php esc_html_e( "Error logging via 'wp-config.php' using 'WP_DEBUG'", 'error-log-viewer' ); ?>
+						</span>
+					</th>
+					<td>
+						<fieldset>
+							<label>
+								<input type="radio" name="rrrlgvwr_create_log" value="config_debug" />
+								<?php esc_html_e( "Add the following code in the 'wp-config.php' file and create 'debug.log' in the 'wp-content' directory", 'error-log-viewer' ); ?>
+							</label>
+						</fieldset>
+						<p class="rrrlgvwr-pre">define('WP_DEBUG', true);<br>define('WP_DEBUG_LOG', true);<br>define('WP_DEBUG_DISPLAY', false);<br>@ini_set('display_errors', 0);</p>
+					</td>
+				</tr>
+			</table>
+			<p>
+				<?php esc_html_e( "Files '.htaccess' and 'wp-config.php' are very important for normal working of your site. Please save them necessarily before changes. You can create custom file for logging and edit required file by yourself. See also", 'error-log-viewer' ); ?>:
+				<a target="_blank" href="https://codex.wordpress.org/Debugging_in_WordPress"><?php esc_html_e( 'Debugging on WordPress', 'error-log-viewer' ); ?></a>,
+				<a target="_blank" href="https://codex.wordpress.org/Editing_wp-config.php"><?php esc_html_e( 'Editing', 'error-log-viewer' ); ?> wp-config.php</a>
+			</p>
+			<?php } else {
+				$subname_array = array();
+				foreach ( $this->wp_error_files as $key => $file ) {
+					$name        = basename( $file );
+					$path_info   = pathinfo( $file );
+					$parent_dir  = basename( $path_info['dirname'] );
+					$subname     = $parent_dir . '_' . $path_info['filename'] . '_visible';
+					$old_subname = $key . '_' . $path_info['filename'] . '_visible';
+					if ( in_array( $subname, $subname_array ) ) {
+						$parent_parent_dir = basename( $path_info['dirname'] );
+
+						$subname = $parent_parent_dir . '_' . $parent_dir . '_' . $path_info['filename'] . '_visible';
+					}
+					$subname_array[] = $subname;
+					?>
 					<tr>
 						<th scope="row" class="th-full">
-							<span><?php esc_html_e( "Error logging via '.htaccess' using 'php_flag' and 'php_value'", 'error-log-viewer' ); ?></span>
+							<label>
+								<input type="checkbox" name="<?php echo esc_attr( $subname ); ?>" <?php	checked( ( isset( $this->options[ $subname ] ) && $this->options[ $subname ] ) || ( isset( $this->options[ $old_subname ] ) && $this->options[ $old_subname ] ) ); ?> />	<?php echo esc_attr( $name ); ?>
+							</label>
 						</th>
+						<td><?php echo esc_html( $file ); ?></td>
 						<td>
-							<fieldset>
-								<label>
-									<input type="radio" name="rrrlgvwr_create_log" value="htaccess" />
-									<?php esc_html_e( "Add the following code in your '.htaccess' file and create 'php-errors.log' file in 'log' directory in the plugin folder", 'error-log-viewer' ); ?>
-								</label>
-							</fieldset>
-							<p class="rrrlgvwr-pre"># log php errors<br>php_flag log_errors on<br>php_flag display_errors off<br>php_value error_log <?php echo esc_url( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'log' . DIRECTORY_SEPARATOR . 'php-errors.log' ); ?></p>
+							<?php
+							if ( 0 === filesize( $file ) ) {
+								esc_html_e( 'The file is empty', 'error-log-viewer' );
+							} else {
+								echo esc_attr( rrrlgvwr_file_size( $file ) );
+							}
+							?>
+						</td>
+						<td>
+							<?php
+							esc_html_e( 'Last update', 'error-log-viewer' );
+							echo esc_html( ': ' . gmdate( 'Y-m-d H:i:s', filemtime( $file ) ) );
+							?>
 						</td>
 					</tr>
-					<tr>
-						<th scope="row" class="th-full">
-							<span>
-								<?php esc_html_e( "Error logging via 'wp-config.php' using 'ini_set'", 'error-log-viewer' ); ?>
-							</span>
-						</th>
-						<td>
-							<fieldset>
-								<label>
-									<input type="radio" name="rrrlgvwr_create_log" value="config_ini_set" />
-									<?php esc_html_e( "Add the following code in the 'wp-config.php' file and create 'php-errors.log' file in 'log' directory in the plugin folder", 'error-log-viewer' ); ?>
-								</label>
-							</fieldset>
-							<p class="rrrlgvwr-pre">@ini_set( 'log_errors','On' );<br>@ini_set( 'display_errors','Off' );<br>@ini_set( 'error-log-viewer', '<?php echo esc_url( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'log' . DIRECTORY_SEPARATOR . 'php-errors.log' ); ?>' );</p>
-						</td>
-					</tr>
-					<tr>
-						<th scope="row" class="th-full">
-							<span>
-								<?php esc_html_e( "Error logging via 'wp-config.php' using 'WP_DEBUG'", 'error-log-viewer' ); ?>
-							</span>
-						</th>
-						<td>
-							<fieldset>
-								<label>
-									<input type="radio" name="rrrlgvwr_create_log" value="config_debug" />
-									<?php esc_html_e( "Add the following code in the 'wp-config.php' file and create 'debug.log' in the 'wp-content' directory", 'error-log-viewer' ); ?>
-								</label>
-							</fieldset>
-							<p class="rrrlgvwr-pre">define('WP_DEBUG', true);<br>define('WP_DEBUG_LOG', true);<br>define('WP_DEBUG_DISPLAY', false);<br>@ini_set('display_errors', 0);</p>
-						</td>
-					</tr>
-				</table>
-				<p>
-					<?php esc_html_e( "Files '.htaccess' and 'wp-config.php' are very important for normal working of your site. Please save them necessarily before changes. You can create custom file for logging and edit required file by yourself. See also", 'error-log-viewer' ); ?>:
-					<a target="_blank" href="https://codex.wordpress.org/Debugging_in_WordPress"><?php esc_html_e( 'Debugging on WordPress', 'error-log-viewer' ); ?></a>,
-					<a target="_blank" href="https://codex.wordpress.org/Editing_wp-config.php"><?php esc_html_e( 'Editing', 'error-log-viewer' ); ?> wp-config.php</a>
-				</p>
-			<?php } else { ?>
-				<table class="form-table">
-					<?php
-					foreach ( $this->wp_error_files as $key => $file ) {
-						$name    = basename( $file );
-						$subname = $key . '_' . pathinfo( $name, PATHINFO_FILENAME ) . '_visible';
-						?>
-						<tr>
-							<th scope="row" class="th-full">
-								<label>
-									<input type="checkbox" name="<?php echo esc_attr( $subname ); ?>" <?php	checked( isset( $this->options[ $subname ] ) && $this->options[ $subname ] ); ?> />	<?php echo esc_attr( $name ); ?>
-								</label>
-							</th>
-							<td><?php echo esc_html( $file ); ?></td>
-							<td>
-								<?php
-								if ( 0 === filesize( $file ) ) {
-									esc_html_e( 'The file is empty', 'error-log-viewer' );
-								} else {
-									echo esc_attr( rrrlgvwr_file_size( $file ) );
-								}
-								?>
-							</td>
-							<td>
-								<?php
-								esc_html_e( 'Last update', 'error-log-viewer' );
-								echo esc_html( ': ' . gmdate( 'Y-m-d H:i:s', filemtime( $file ) ) );
-								?>
-							</td>
-						</tr>
-					<?php } ?>
+				<?php } ?>
 				</table>
 				<?php
 			}

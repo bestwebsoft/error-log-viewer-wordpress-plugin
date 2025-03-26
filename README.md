@@ -4,7 +4,7 @@
 <p>Simple utility plugin that helps to find and view log files with errors right from your WordPress admin dashboard. Get access to all your log files from one place. View the latest activity, select logs by date, or view a full log file. Get email notifications about log changes.</p>
 <p>Get access to your website logs and troubleshoot issues faster!</p>
 <p><a href="https://bestwebsoft.com/demo-error-log-viewer/?ref=readme" rel="nofollow ugc">View Demo</a></p>
-<p><span class="embed-youtube" style="text-align:center; display: block;"></span></p>
+<p></p>
 <h4>Features</h4>
 <ul>
 <li>Enable WordPress error logging with:

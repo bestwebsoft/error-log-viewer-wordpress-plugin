@@ -6,7 +6,7 @@ Description: Get latest error log messages to diagnose website problems. Define 
 Author: BestWebSoft
 Text Domain: error-log-viewer
 Domain Path: /languages
-Version: 1.1.5
+Version: 1.1.6
 Author URI: https://bestwebsoft.com/
 License: GNU General Public License V3
  */
@@ -365,177 +365,218 @@ if ( ! function_exists( 'rrrlgvwr_monitor_page' ) ) {
 			}
 			?>
 			><p><strong><?php echo esc_html( $error ); ?></strong></p></div>
-			<?php if ( ! empty( $rrrlgvwr_options['file_path'] ) ) { ?>
-				<form method="post" action="admin.php?page=rrrlgvwr-monitor.php">
-					<table class="form-table">
-						<tr>
-							<th scope="row"><?php esc_html_e( 'File', 'error-log-viewer' ); ?></th>
-							<?php if ( isset( $rrrlgvwr_options['count_visible_log'] ) && $rrrlgvwr_options['count_visible_log'] > 1 ) { ?>
-								<td>
-									<select name="rrrlgvwr_select_log">
-										<?php if ( intval( $rrrlgvwr_options['php_error_log_visible'] ) === 1 ) : ?>
-											<option value="<?php echo esc_attr( $rrrlgvwr_php_error_path ); ?>"
-												<?php
-												if ( $rrrlgvwr_options['error_log_path'] === $rrrlgvwr_php_error_path ) {
-													echo 'selected="selected"';
-												}
-												?>
-											><?php echo esc_html( $php_error_log_name ); ?></option>
-											<?php
-										endif;
-										foreach ( $wp_error_files as $key => $file ) {
-											$name    = str_replace( substr( $file, 0, strripos( $file, '/' ) + 1 ), '', $file );
-											$subname = substr( $name, 0, strpos( $name, '.' ) );
-											$subname = $key . '_' . $subname . '_visible';
-											if ( isset( $rrrlgvwr_options[ $subname ] ) && intval( $rrrlgvwr_options[ $subname ] ) === 1 ) {
-												if ( $file === $rrrlgvwr_php_error_path && 1 === intval( $rrrlgvwr_options['php_error_log_visible'] ) ) {
-													continue;
-												}
-												?>
-												<option value="<?php echo esc_attr( $file ); ?>"
+			<?php if ( ! empty( $rrrlgvwr_options['file_path'] ) ) {
+				$flag_display = false;
+				foreach ( $rrrlgvwr_options['file_path'] as $path ) {
+					if ( $wp_filesystem->exists( $path ) ) {
+						$flag_display = true;
+						break;
+					}
+				}
+				if ( ! empty( $rrrlgvwr_options['file_path'] ) && true === $flag_display ) {
+					?>
+					<form method="post" action="admin.php?page=rrrlgvwr-monitor.php">
+						<table class="form-table">
+							<tr>
+								<th scope="row"><?php esc_html_e( 'File', 'error-log-viewer' ); ?></th>
+								<?php if ( isset( $rrrlgvwr_options['count_visible_log'] ) && $rrrlgvwr_options['count_visible_log'] > 1 ) { ?>
+									<td>
+										<select name="rrrlgvwr_select_log">
+											<?php if ( intval( $rrrlgvwr_options['php_error_log_visible'] ) === 1 ) : ?>
+												<option value="<?php echo esc_attr( $rrrlgvwr_php_error_path ); ?>"
 													<?php
-													if ( $rrrlgvwr_options['error_log_path'] === $file ) {
+													if ( $rrrlgvwr_options['error_log_path'] === $rrrlgvwr_php_error_path ) {
 														echo 'selected="selected"';
 													}
 													?>
-												><?php echo esc_attr( $name ); ?></option>
+												><?php echo esc_html( $php_error_log_name ); ?></option>
 												<?php
-											}
-										}
-										?>
-									</select>
-								</td>
-							<?php } elseif ( isset( $rrrlgvwr_options['count_visible_log'] ) && intval( $rrrlgvwr_options['count_visible_log'] ) === 1 ) { ?>
-								<td>
-									<span>
-										<?php
-										if ( 1 === intval( $rrrlgvwr_options['php_error_log_visible'] ) ) {
-											echo esc_html( $php_error_log_name );
-											$rrrlgvwr_options['error_log_path'] = $rrrlgvwr_php_error_path;
-											update_option( 'rrrlgvwr_options', $rrrlgvwr_options );
-										} else {
+											endif;
+											$subname_array = array();
 											foreach ( $wp_error_files as $key => $file ) {
-												$name    = str_replace( substr( $file, 0, strripos( $file, '/' ) + 1 ), '', $file );
+												/*$name    = str_replace( substr( $file, 0, strripos( $file, '/' ) + 1 ), '', $file );
 												$subname = substr( $name, 0, strpos( $name, '.' ) );
-												$subname = $key . '_' . $subname . '_visible';
-												if ( isset( $rrrlgvwr_options[ $subname ] ) && 1 === intval( $rrrlgvwr_options[ $subname ] ) ) {
-													echo esc_html( $name );
-													$rrrlgvwr_options['error_log_path'] = $file;
-													update_option( 'rrrlgvwr_options', $rrrlgvwr_options );
+												$subname = $key . '_' . $subname . '_visible';*/
+												$name        = basename( $file );
+												$path_info   = pathinfo( $file );
+												$parent_dir  = basename( $path_info['dirname'] );
+												$subname     = $parent_dir . '_' . $path_info['filename'] . '_visible';
+												$old_subname = $key . '_' . $path_info['filename'] . '_visible';
+												if ( in_array( $subname, $subname_array ) ) {
+													$parent_parent_dir = basename( $path_info['dirname'] );
+
+													$subname = $parent_parent_dir . '_' . $parent_dir . '_' . $path_info['filename'] . '_visible';
+												}
+												$subname_array[] = $subname;
+												if ( ( isset( $rrrlgvwr_options[ $subname ] ) && intval( $rrrlgvwr_options[ $subname ] ) === 1 ) || ( isset( $rrrlgvwr_options[ $old_subname ] ) && intval( $rrrlgvwr_options[ $old_subname ] ) === 1 ) ) {
+													if ( $file === $rrrlgvwr_php_error_path && 1 === intval( $rrrlgvwr_options['php_error_log_visible'] ) ) {
+														continue;
+													}
+													?>
+													<option value="<?php echo esc_attr( $file ); ?>"
+														<?php
+														if ( $rrrlgvwr_options['error_log_path'] === $file ) {
+															echo 'selected="selected"';
+														}
+														?>
+													><?php echo esc_attr( $parent_dir . '/' . $name ); ?></option>
+													<?php
 												}
 											}
-										}
-										?>
-									</span>
-								</td>
-							<?php } ?>
-						</tr>
-						<tr>
-							<th scope="row"><?php esc_html_e( 'Show', 'error-log-viewer' ); ?></th>
-							<td>
-								<fieldset>
-									<legend class="screen-reader-text"><span><?php esc_html_e( 'Show', 'error-log-viewer' ); ?></span></legend>
-									<label for="rrrlgvwr-show-line">
-										<input type="radio" name="rrrlgvwr_show_content" id="rrrlgvwr-show-line" value="lines" <?php checked( 'lines', $rrrlgvwr_options['display_method'] ); ?> />
-										<span><?php esc_html_e( 'last', 'error-log-viewer' ); ?></span>
-										<input type="number" min="1" name="rrrlgvwr_lines_count" value="<?php echo esc_attr( $rrrlgvwr_options['lines_count'] ); ?>" />
-										<span><?php esc_html_e( 'lines', 'error-log-viewer' ); ?></span>
-									</label><br>
-									<label for="rrrlgvwr-show-date">
-										<input type="radio" name="rrrlgvwr_show_content" id="rrrlgvwr-show-date" value="date" <?php checked( 'date', $rrrlgvwr_options['display_method'] ); ?> />
-										<span><?php esc_html_e( 'log from', 'error-log-viewer' ); ?></span>
-										<input type="text" id="rrrlgvwr-from" name="rrrlgvwr_from" value="<?php echo esc_attr( $rrrlgvwr_options['date_from'] ); ?>" />
-										<span class="rrrlgvwr-indent"><?php esc_html_e( 'to', 'error-log-viewer' ); ?></span>
-										<input type="text" id="rrrlgvwr-to" name="rrrlgvwr_to" value="<?php echo esc_attr( $rrrlgvwr_options['date_to'] ); ?>" />
-									</label><br>
-									<div class="hide-if-js rrrlgvwr-date-search-mes">
-										<p>
-											<span><?php esc_html_e( 'JavaScript is disable on your site. To search logs by dates, please enter in the first and second field dates among which you want see the log. Your entry should look like', 'error-log-viewer' ); ?></span>
-											<code>07/10/2015<span class="rrrlgvwr-indent"><?php esc_html_e( 'to', 'error-log-viewer' ); ?></span>07/19/2015.</code>
-											<span><?php esc_html_e( 'The first two numbers means month, the second two numbers means day of months, the last four numbers means year', 'error-log-viewer' ); ?></span>
-										</p>
-									</div>
-									<label for="rrrlgvwr-show-all">
-										<input type="radio" name="rrrlgvwr_show_content" id="rrrlgvwr-show-all" value="all" <?php checked( 'all', $rrrlgvwr_options['display_method'] ); ?> />
-										<span><?php esc_html_e( 'full file', 'error-log-viewer' ); ?></span>
-									</label>
-									<?php if ( file_exists( $rrrlgvwr_options['error_log_path'] ) && filesize( $rrrlgvwr_options['error_log_path'] ) > $rrrlgvwr_ten_mb ) { ?>
+											?>
+										</select>
+									</td>
+								<?php } elseif ( isset( $rrrlgvwr_options['count_visible_log'] ) && intval( $rrrlgvwr_options['count_visible_log'] ) === 1 ) { ?>
+									<td>
+										<span>
+											<?php
+											if ( 1 === intval( $rrrlgvwr_options['php_error_log_visible'] ) ) {
+												echo esc_html( $php_error_log_name );
+												$rrrlgvwr_options['error_log_path'] = $rrrlgvwr_php_error_path;
+												update_option( 'rrrlgvwr_options', $rrrlgvwr_options );
+											} else {
+												$subname_array = array();
+												foreach ( $wp_error_files as $key => $file ) {
+													$name        = basename( $file );
+													$path_info   = pathinfo( $file );
+													$parent_dir  = basename( $path_info['dirname'] );
+													$subname     = $parent_dir . '_' . $path_info['filename'] . '_visible';
+													$old_subname = $key . '_' . $path_info['filename'] . '_visible';
+													if ( in_array( $subname, $subname_array ) ) {
+														$parent_parent_dir = basename( $path_info['dirname'] );
+
+														$subname = $parent_parent_dir . '_' . $parent_dir . '_' . $path_info['filename'] . '_visible';
+													}
+													$subname_array[] = $subname;
+													if ( ( isset( $rrrlgvwr_options[ $subname ] ) && intval( $rrrlgvwr_options[ $subname ] ) === 1 ) || ( isset( $rrrlgvwr_options[ $old_subname ] ) && intval( $rrrlgvwr_options[ $old_subname ] ) === 1 ) ) {
+														echo esc_html( $parent_dir . '/' . $name );
+														$rrrlgvwr_options['error_log_path'] = $file;
+														update_option( 'rrrlgvwr_options', $rrrlgvwr_options );
+													}
+												}
+											}
+											?>
+										</span>
+									</td>
+								<?php } ?>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Show', 'error-log-viewer' ); ?></th>
+								<td>
+									<fieldset>
+										<legend class="screen-reader-text"><span><?php esc_html_e( 'Show', 'error-log-viewer' ); ?></span></legend>
+										<label for="rrrlgvwr-show-line">
+											<input type="radio" name="rrrlgvwr_show_content" id="rrrlgvwr-show-line" value="lines" <?php checked( 'lines', $rrrlgvwr_options['display_method'] ); ?> />
+											<span><?php esc_html_e( 'last', 'error-log-viewer' ); ?></span>
+											<input type="number" min="1" name="rrrlgvwr_lines_count" value="<?php echo esc_attr( $rrrlgvwr_options['lines_count'] ); ?>" />
+											<span><?php esc_html_e( 'lines', 'error-log-viewer' ); ?></span>
+										</label><br>
+										<label for="rrrlgvwr-show-date">
+											<input type="radio" name="rrrlgvwr_show_content" id="rrrlgvwr-show-date" value="date" <?php checked( 'date', $rrrlgvwr_options['display_method'] ); ?> />
+											<span><?php esc_html_e( 'log from', 'error-log-viewer' ); ?></span>
+											<input type="text" id="rrrlgvwr-from" name="rrrlgvwr_from" value="<?php echo esc_attr( $rrrlgvwr_options['date_from'] ); ?>" />
+											<span class="rrrlgvwr-indent"><?php esc_html_e( 'to', 'error-log-viewer' ); ?></span>
+											<input type="text" id="rrrlgvwr-to" name="rrrlgvwr_to" value="<?php echo esc_attr( $rrrlgvwr_options['date_to'] ); ?>" />
+										</label><br>
 										<div class="hide-if-js rrrlgvwr-date-search-mes">
-											<p><?php esc_html_e( 'File size is more than 10 Mb. Be careful to check this option', 'error-log-viewer' ); ?></p>
+											<p>
+												<span><?php esc_html_e( 'JavaScript is disable on your site. To search logs by dates, please enter in the first and second field dates among which you want see the log. Your entry should look like', 'error-log-viewer' ); ?></span>
+												<code>07/10/2015<span class="rrrlgvwr-indent"><?php esc_html_e( 'to', 'error-log-viewer' ); ?></span>07/19/2015.</code>
+												<span><?php esc_html_e( 'The first two numbers means month, the second two numbers means day of months, the last four numbers means year', 'error-log-viewer' ); ?></span>
+											</p>
 										</div>
-									<?php }; ?>
-								</fieldset>
-							</td>
-						</tr>
-					</table>
-					<p class="submit">
-						<input type="submit" name="rrrlgvwr_submit_show_content" class="button button-primary" value="<?php esc_html_e( 'View', 'error-log-viewer' ); ?>" />
-						<?php wp_nonce_field( plugin_basename( __FILE__ ), 'rrrlgvwr_nonce_name' ); ?>
-						<?php if ( ! empty( $rrrlgvwr_options['error_log_path'] ) && $rrrlgvwr_options['error_log_path'] === $rrrlgvwr_php_error_path ) { ?>
-							<span class="rrrlgvwr-indent"><?php esc_html_e( 'or', 'error-log-viewer' ); ?></span>
-							<input type="submit" name="rrrlgvwr_save_content" class="button" value="<?php esc_html_e( 'Save as TXT file', 'error-log-viewer' ); ?>" />
-						<?php } ?>
-					</p>
-					<textarea id="rrrlgvwr_textarea_content" name="rrrlgvwr_newcontent" class="large-text code" rows="16" readonly="readonly"><?php
-					if ( isset( $_POST['rrrlgvwr_submit_show_content'] ) && isset( $_POST['rrrlgvwr_show_content'] ) ) {
-						switch ( sanitize_key( $_POST['rrrlgvwr_show_content'] ) ) {
-							case 'lines':
-								rrrlgvwr_read_last_lines( $rrrlgvwr_options['error_log_path'], $rrrlgvwr_options['lines_count'] );
-								break;
-							case 'date':
-								$first_date = isset( $_POST['rrrlgvwr_from'] ) ? strtotime( sanitize_text_field( wp_unslash( $_POST['rrrlgvwr_from'] ) ) ) : time();
-								$last_date  = isset( $_POST['rrrlgvwr_to'] ) ? strtotime( sanitize_text_field( wp_unslash( $_POST['rrrlgvwr_to'] ) ) ) : time();
-								rrrlgvwr_read_lines_by_date( $rrrlgvwr_options['error_log_path'], $first_date, $last_date );
-								break;
-							case 'all':
-								rrrlgvwr_read_full_file( $rrrlgvwr_options['error_log_path'] );
-								break;
+										<label for="rrrlgvwr-show-all">
+											<input type="radio" name="rrrlgvwr_show_content" id="rrrlgvwr-show-all" value="all" <?php checked( 'all', $rrrlgvwr_options['display_method'] ); ?> />
+											<span><?php esc_html_e( 'full file', 'error-log-viewer' ); ?></span>
+										</label>
+										<?php if ( file_exists( $rrrlgvwr_options['error_log_path'] ) && filesize( $rrrlgvwr_options['error_log_path'] ) > $rrrlgvwr_ten_mb ) { ?>
+											<div class="hide-if-js rrrlgvwr-date-search-mes">
+												<p><?php esc_html_e( 'File size is more than 10 Mb. Be careful to check this option', 'error-log-viewer' ); ?></p>
+											</div>
+										<?php }; ?>
+									</fieldset>
+								</td>
+							</tr>
+						</table>
+						<p class="submit">
+							<input type="submit" name="rrrlgvwr_submit_show_content" class="button button-primary" value="<?php esc_html_e( 'View', 'error-log-viewer' ); ?>" />
+							<?php wp_nonce_field( plugin_basename( __FILE__ ), 'rrrlgvwr_nonce_name' ); ?>
+							<?php if ( ! empty( $rrrlgvwr_options['error_log_path'] ) && $rrrlgvwr_options['error_log_path'] === $rrrlgvwr_php_error_path ) { ?>
+								<span class="rrrlgvwr-indent"><?php esc_html_e( 'or', 'error-log-viewer' ); ?></span>
+								<input type="submit" name="rrrlgvwr_save_content" class="button" value="<?php esc_html_e( 'Save as TXT file', 'error-log-viewer' ); ?>" />
+							<?php } ?>
+						</p>
+						<textarea id="rrrlgvwr_textarea_content" name="rrrlgvwr_newcontent" class="large-text code" rows="16" readonly="readonly"><?php
+						if ( isset( $_POST['rrrlgvwr_submit_show_content'] ) && isset( $_POST['rrrlgvwr_show_content'] ) ) {
+							switch ( sanitize_key( $_POST['rrrlgvwr_show_content'] ) ) {
+								case 'lines':
+									rrrlgvwr_read_last_lines( $rrrlgvwr_options['error_log_path'], $rrrlgvwr_options['lines_count'] );
+									break;
+								case 'date':
+									$first_date = isset( $_POST['rrrlgvwr_from'] ) ? strtotime( sanitize_text_field( wp_unslash( $_POST['rrrlgvwr_from'] ) ) ) : time();
+									$last_date  = isset( $_POST['rrrlgvwr_to'] ) ? strtotime( sanitize_text_field( wp_unslash( $_POST['rrrlgvwr_to'] ) ) ) : time();
+									rrrlgvwr_read_lines_by_date( $rrrlgvwr_options['error_log_path'], $first_date, $last_date );
+									break;
+								case 'all':
+									rrrlgvwr_read_full_file( $rrrlgvwr_options['error_log_path'] );
+									break;
+							}
+						} else {
+							rrrlgvwr_read_last_lines( $rrrlgvwr_options['error_log_path'], $rrrlgvwr_options['lines_count'] );
 						}
-					} else {
-						rrrlgvwr_read_last_lines( $rrrlgvwr_options['error_log_path'], $rrrlgvwr_options['lines_count'] );
-					}
-					?>
-					</textarea>
-					<table class="form-table">
-						<tr>
-							<th scope="row">
-								<span><?php esc_html_e( 'File', 'error-log-viewer' ); ?></span>
-								<?php if ( false !== strpos( $rrrlgvwr_options['error_log_path'], $home_path ) ) { ?>
-									<a target="_blank" href="<?php echo esc_url( str_replace( $home_path, get_home_url(), $rrrlgvwr_options['error_log_path'] ) ); ?>"><?php echo esc_html( basename( $rrrlgvwr_options['error_log_path'] ) ); ?></a>
-									<?php 
-								} else {
-									echo esc_html( basename( $rrrlgvwr_options['error_log_path'] ) );
-								}
-								?>
-								<span>
-									<?php
-									if ( file_exists( $rrrlgvwr_options['error_log_path'] ) ) {
-										if ( 0 === filesize( $rrrlgvwr_options['error_log_path'] ) ) {
-											esc_html_e( 'The file is empty.', 'error-log-viewer' );
-										} else {
-											echo esc_html__( 'with size', 'error-log-viewer' ) . ' ' . esc_attr( rrrlgvwr_file_size( $rrrlgvwr_options['error_log_path'] ) );
-										}
-										echo ' ' . esc_html__( 'Last update', 'error-log-viewer' ) . ': ' . esc_html( gmdate( 'Y-m-d H:i:s', filemtime( $rrrlgvwr_options['error_log_path'] ) ) );
+						?>
+						</textarea>
+						<table class="form-table">
+							<tr>
+								<th scope="row">
+									<span><?php esc_html_e( 'File', 'error-log-viewer' ); ?></span>
+									<?php if ( false !== strpos( $rrrlgvwr_options['error_log_path'], $home_path ) ) { ?>
+										<a target="_blank" href="<?php echo esc_url( str_replace( $home_path, get_home_url(), $rrrlgvwr_options['error_log_path'] ) ); ?>"><?php echo esc_html( basename( $rrrlgvwr_options['error_log_path'] ) ); ?></a>
+										<?php 
+									} else {
+										echo esc_html( basename( $rrrlgvwr_options['error_log_path'] ) );
 									}
 									?>
-								<span>
-							</th>
-						</tr>
-					</table>
-					<p class="submit">
-						<input type="submit" class="button button-primary" name="rrrlgvwr_clear_file" id="rrrlgvwr-clear-file" value="<?php esc_html_e( 'Clear log file', 'error-log-viewer' ); ?>" />
-						<input type="hidden" value="<?php echo esc_attr( $rrrlgvwr_options['error_log_path'] ); ?>" name="rrrlgvwr_clear_file_name" />
-					</p>
-					<?php wp_nonce_field( plugin_basename( __FILE__ ), 'rrrlgvwr_nonce_name' ); ?>
-				</form>
-				<?php if ( $rrrlgvwr_php_error_path === $rrrlgvwr_options['error_log_path'] ) { ?>
-					<h3 class="title"><?php esc_html_e( 'Saved log files', 'error-log-viewer' ); ?></h3>
-					<form class="rrrlgvwr-saved-logs-table" method="post" action="admin.php?page=rrrlgvwr-monitor.php">
-						<?php
-						$saved_logs->display();
-						wp_nonce_field( plugin_basename( __FILE__ ), 'rrrlgvwr_nonce_name' );
-						?>
+									<span>
+										<?php
+										if ( file_exists( $rrrlgvwr_options['error_log_path'] ) ) {
+											if ( 0 === filesize( $rrrlgvwr_options['error_log_path'] ) ) {
+												esc_html_e( 'The file is empty.', 'error-log-viewer' );
+											} else {
+												echo esc_html__( 'with size', 'error-log-viewer' ) . ' ' . esc_attr( rrrlgvwr_file_size( $rrrlgvwr_options['error_log_path'] ) );
+											}
+											echo ' ' . esc_html__( 'Last update', 'error-log-viewer' ) . ': ' . esc_html( gmdate( 'Y-m-d H:i:s', filemtime( $rrrlgvwr_options['error_log_path'] ) ) );
+										}
+										?>
+									<span>
+								</th>
+							</tr>
+						</table>
+						<p class="submit">
+							<input type="submit" class="button button-primary" name="rrrlgvwr_clear_file" id="rrrlgvwr-clear-file" value="<?php esc_html_e( 'Clear log file', 'error-log-viewer' ); ?>" />
+							<input type="hidden" value="<?php echo esc_attr( $rrrlgvwr_options['error_log_path'] ); ?>" name="rrrlgvwr_clear_file_name" />
+						</p>
+						<?php wp_nonce_field( plugin_basename( __FILE__ ), 'rrrlgvwr_nonce_name' ); ?>
 					</form>
+					<?php if ( $rrrlgvwr_php_error_path === $rrrlgvwr_options['error_log_path'] ) { ?>
+						<h3 class="title"><?php esc_html_e( 'Saved log files', 'error-log-viewer' ); ?></h3>
+						<form class="rrrlgvwr-saved-logs-table" method="post" action="admin.php?page=rrrlgvwr-monitor.php">
+							<?php
+							$saved_logs->display();
+							wp_nonce_field( plugin_basename( __FILE__ ), 'rrrlgvwr_nonce_name' );
+							?>
+						</form>
+					<?php } ?>
+				<?php } else { ?>
+					<p>
+						<?php
+						printf(
+							esc_html__( 'Please enable log files in the %1$sError Log Viewer settings page%2$s to manage them.', 'error-log-viewer' ),
+							'<a href="admin.php?page=rrrlgvwr.php">',
+							'</a>'
+						);
+						?>
+					</p>
 				<?php } ?>
 			<?php } else { ?>
 				<p>
@@ -666,7 +707,7 @@ if ( ! function_exists( 'rrrlgvwr_read_last_lines' ) ) {
 				echo wp_kses_post( $line );
 			}
 		} else {
-			return printf( esc_html__( "Couldn't open the file %s. Make sure file is exists or is readable.", 'error-log-viewer' ), esc_attr( $file ) );
+			return printf( esc_html__( "Couldn't open the file %s. Make sure file exists or is readable.", 'error-log-viewer' ), esc_attr( $file ) );
 		}
 	}
 }
@@ -707,7 +748,7 @@ if ( ! function_exists( 'rrrlgvwr_read_lines_by_date' ) ) {
 				printf( esc_html__( 'No log in search date from %1$s to %2$s', 'error-log-viewer' ), esc_html( gmdate( 'Y-m-d', $first_date ), gmdate( 'Y-m-d', $last_date ) ) );
 			}
 		} else {
-			return printf( esc_html__( "Couldn't open the file %s. Make sure file is exists or is readable.", 'error-log-viewer' ), esc_attr( $file ) );
+			return printf( esc_html__( "Couldn't open the file %s. Make sure file exists or is readable.", 'error-log-viewer' ), esc_attr( $file ) );
 		}
 	}
 }
@@ -729,7 +770,7 @@ if ( ! function_exists( 'rrrlgvwr_read_full_file' ) ) {
 				echo wp_kses_post( $line );
 			}
 		} else {
-			return printf( esc_html__( "Couldn't open the file %s. Make sure file is exists or is readable.", 'error-log-viewer' ), esc_attr( $file ) );
+			return printf( esc_html__( "Couldn't open the file %s. Make sure file exists or is readable.", 'error-log-viewer' ), esc_attr( $file ) );
 		}
 	}
 }
@@ -785,7 +826,7 @@ if ( ! function_exists( 'rrrlgvwr_clear_file' ) ) {
 
 		if ( $wp_filesystem->exists( $file ) && ( $page->check_file( $file ) || $rrrlgvwr_php_error_path === $file ) ) {
 			if ( ! $wp_filesystem->get_contents( $file ) ) {
-				return sprintf( esc_html__( "Couldn't open the file %s. Make sure file is exists or is readable.", 'error-log-viewer' ), esc_attr( $file ) );
+				return sprintf( esc_html__( "Couldn't open the file %s. Make sure file exists or is readable.", 'error-log-viewer' ), esc_attr( $file ) );
 			} else {
 				$wp_filesystem->put_contents( $file, '' );
 			}
